@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react'
+import api from '../../api'
 
 export default function ApiHealthcheck() {
   const [healthData, setHealthData] = useState('Loading...')
 
   useEffect(() => {
-    fetch('/api/')
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        } else {
-          throw res.status
-        }
-      })
+    api
+      .get('/api')
       .then((result) => {
-        const jsonText = JSON.stringify(result, null, 2)
+        console.log('result = ', result.data)
+        const jsonText = JSON.stringify(result.data, null, 2)
         setHealthData(jsonText)
       })
       .catch((error) => {
