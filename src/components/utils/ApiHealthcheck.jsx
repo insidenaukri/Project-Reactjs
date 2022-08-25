@@ -5,13 +5,21 @@ export default function ApiHealthcheck() {
 
   useEffect(() => {
     fetch('/api/')
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw res.status
+        }
+      })
       .then((result) => {
-        console.log('result = ', result)
         const jsonText = JSON.stringify(result, null, 2)
         setHealthData(jsonText)
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        console.error('Catching in promise chain:', error)
+        setHealthData(error)
+      })
   }, [])
 
   return (

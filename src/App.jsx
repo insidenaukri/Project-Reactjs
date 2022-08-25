@@ -1,16 +1,18 @@
+import { Outlet } from 'react-router-dom'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Sidebar from './components/Sidebar'
 import './App.css'
-import ApiHealthcheck from './components/utils/ApiHealthcheck'
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <h1>Bonusportalen</h1>
-      {
-        // Todo: Below component is only used to healthcheck API.
-      }
-      <ApiHealthcheck />
+    <div className="app">
+      <Header />
+      <div style={{ display: 'flex' }}>
+        <Sidebar />
+        <Outlet />
+      </div>
+      <Footer />
     </div>
   )
 }
-
-export default App
