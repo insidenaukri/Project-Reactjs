@@ -9,7 +9,7 @@ export default function HttpError() {
     (code === '400'
       ? 'Bad Request'
       : code === '401'
-      ? 'Unathorized'
+      ? 'Unauthorized'
       : code === '403'
       ? 'Forbidden'
       : code === '404'
