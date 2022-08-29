@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
+import styles from './Sidebar.module.css'
+
 export default function Sidebar() {
   return (
-    <aside className="sidebar">
+    <aside className={styles.sidebar}>
       <h3>Main</h3>
       <ul>
         <li>

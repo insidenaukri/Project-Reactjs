@@ -1,0 +1,22 @@
+.header {
+  border-bottom: 1px solid black;
+  padding: 0.5em 2em 0 2em;
+}
+
+/* Todo: Fix bottom border bug. */
+.header nav {
+  align-items: center;
+  color: var(--color-text);
+  display: flex;
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-header);
+}
+
+.header a {
+  text-decoration: var(--text-decoration);
+}
+.header a:active,
+.header a:hover {
+  color: var(--color-text-hover);
+  text-decoration: var(--text-decoration-hover);
+}
