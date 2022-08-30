@@ -23,54 +23,12 @@
   font-size: var(--font-size-standard);
 }
 
-.header {
-  border-bottom: 1px solid black;
-  padding: 0.5em 2em 0 2em;
-}
-
-.header nav {
-  align-items: center;
-  color: var(--color-text);
-  /* Todo: Fix bottom border bug. */
-  display: flex;
-  font-family: var(--font-family-bold);
-  font-size: var(--font-size-header);
-}
-.header a {
-  text-decoration: var(--text-decoration);
-}
-.header a:active,
-.header a:hover {
-  color: var(--color-text-hover);
-  text-decoration: var(--text-decoration-hover);
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
 }
 
 main {
   padding: 1em 2em;
-}
-
-.footer {
-  border-top: 1px solid black;
-  padding: 1em 2em 0 2em;
-  text-align: center;
-}
-
-.sidebar {
-  padding: 0.5em 2em 0.5em 2em;
-  list-style-type: none;
-}
-.sidebar li {
-  list-style-type: none;
-}
-.sidebar h3 {
-  margin-top: 0.5em;
-}
-.sidebar a {
-  color: var(--color-text);
-  text-decoration: var(--text-decoration);
-}
-.sidebar a:active,
-.sidebar a:hover {
-  color: var(--color-text-hover);
-  text-decoration: var(--text-decoration-hover);
 }

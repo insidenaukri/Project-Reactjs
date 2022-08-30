@@ -1,0 +1,23 @@
+.sidebar {
+  padding: 0.5em 2em 0.5em 2em;
+  list-style-type: none;
+
+  & li {
+    list-style-type: none;
+  }
+
+  & h3 {
+    margin-top: 0.5em;
+  }
+
+  & a {
+    color: var(--color-text);
+    text-decoration: var(--text-decoration);
+  }
+
+  & a:active,
+  & a:hover {
+    color: var(--color-text-hover);
+    text-decoration: var(--text-decoration-hover);
+  }
+}
