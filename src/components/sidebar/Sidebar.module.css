@@ -1,10 +1,10 @@
 .sidebar {
   padding: 0.5em 2em 0.5em 2em;
   list-style-type: none;
-
+  width: 200px;
   & li {
     list-style-type: none;
-    padding: 8px 0;
+    padding: 4px 0;
   }
 
   & h3 {
