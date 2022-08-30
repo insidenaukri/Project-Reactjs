@@ -7,6 +7,7 @@ import Dummy from './routes/Dummy'
 import Healthcheck from './routes/Healthcheck'
 import HttpError from './routes/HttpError'
 import TimeEntries from './routes/time-entries/TimeEntries'
+import NotFound from './routes/NotFound'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/healthcheck" element={<Healthcheck />} />
           <Route path="/error" element={<HttpError />} />
           <Route path="/time-entries" element={<TimeEntries />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
