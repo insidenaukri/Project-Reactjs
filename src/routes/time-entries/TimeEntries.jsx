@@ -67,7 +67,7 @@ export default function TimeEntries() {
         <FilterOptions selectedOrganisation={(organisation) => getTimeEntries(organisation.id)} />
         <Button onClick={() => importTimeEntries()}>Import entries</Button>
       </div>
-      <DataTable columns={columns} data={timeEntries} />
+      {timeEntries.length ? <DataTable columns={columns} data={timeEntries} /> : ''}
     </main>
   )
 }
