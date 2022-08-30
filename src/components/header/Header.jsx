@@ -9,7 +9,7 @@ export default function Header() {
         <Link to="/">
           <img src={logo} alt="Hem" />
         </Link>
-        <h2 style={{ display: 'inline', marginLeft: '1rem' }}>Bonusportalen</h2>
+        <h1 style={{ display: 'inline', marginLeft: '1rem' }}>Bonusportalen</h1>
       </nav>{' '}
     </header>
   )
