@@ -1,0 +1,20 @@
+input {
+  height: 40px;
+  padding: 0 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
+  background: #fff;
+  border: 1px solid #d0d5dd;
+  box-sizing: border-box;
+  min-width: 100px;
+  outline: none;
+}
+
+input:hover {
+  border: 1px solid #55b9e6;
+}
+
+input:focus {
+  border: 1px solid #55b9e6;
+}
