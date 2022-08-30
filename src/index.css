@@ -35,6 +35,11 @@ main {
   width: 100%;
 }
 
+.page-wrapper {
+  display: flex;
+  min-height: calc(100vh - 132px);
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;

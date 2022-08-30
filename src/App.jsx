@@ -6,13 +6,13 @@ import 'material-icons'
 
 export default function App() {
   return (
-    <div>
+    <>
       <Header />
-      <div style={{ display: 'flex' }}>
+      <div className="page-wrapper">
         <Sidebar />
         <Outlet />
       </div>
       <Footer />
-    </div>
+    </>
   )
 }
