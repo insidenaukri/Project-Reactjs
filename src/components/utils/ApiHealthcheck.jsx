@@ -6,7 +6,7 @@ export default function ApiHealthcheck() {
 
   useEffect(() => {
     api
-      .get('/api')
+      .get('/')
       .then((result) => {
         console.log('result = ', result.data)
         const jsonText = JSON.stringify(result.data, null, 2)
