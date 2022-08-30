@@ -1,0 +1,10 @@
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.message {
+  margin: 16px;
+  font-weight: bold;
+}

@@ -25,6 +25,16 @@ export default function FilterOptions({ selectedOrganisation }) {
     return (
       <div className={styles.container}>
         <Select
+          placeholder="Year"
+          options={['Todo']}
+          handleChange={(organsiation) => selectedOrganisation(organsiation)}
+        />
+        <Select
+          placeholder="Month"
+          options={['Todo']}
+          handleChange={(organsiation) => selectedOrganisation(organsiation)}
+        />
+        <Select
           placeholder="Organisation"
           options={organisations}
           handleChange={(organsiation) => selectedOrganisation(organsiation)}

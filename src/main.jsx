@@ -6,7 +6,7 @@ import './index.css'
 import Dummy from './routes/Dummy'
 import Healthcheck from './routes/Healthcheck'
 import HttpError from './routes/HttpError'
-import TimeEntries from './routes/TimeEntries'
+import TimeEntries from './routes/time-entries/TimeEntries'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

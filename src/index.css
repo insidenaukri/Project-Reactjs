@@ -10,7 +10,8 @@
 :root {
   --color-background: white;
   --color-text: #2e2d35;
-  --color-text-hover: #55b9e6;
+  --color-text-primary: #55b9e6;
+  --color-text-hover: #339ecd;
   --font-family-main: 'PTSans-Regular', sans-serif;
   --font-family-bold: 'PTSans-Bold', sans-serif;
   --font-size-header: 20px;
@@ -31,4 +32,23 @@
 
 main {
   padding: 1em 2em;
+  width: 100%;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
 }

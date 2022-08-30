@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
-  width: 330px;
+  & div {
+    margin-right: 16px;
+  }
 }
