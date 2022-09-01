@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+
 import styles from './Sidebar.module.css'
 
 export default function Sidebar() {
@@ -22,7 +23,9 @@ export default function Sidebar() {
     return mainRoutes.map((route, index) => {
       return (
         <li key={index}>
-          <Link to={route.path}>{route.name}</Link>
+          <NavLink className={({ isActive }) => (isActive ? styles.active : '')} to={route.path}>
+            {route.name}
+          </NavLink>
         </li>
       )
     })
@@ -39,7 +42,9 @@ export default function Sidebar() {
         {configRoutes.map((route, index) => {
           return (
             <li key={index}>
-              <Link to={route.path}>{route.name}</Link>
+              <NavLink className={({ isActive }) => (isActive ? styles.active : '')} to={route.path}>
+                {route.name}
+              </NavLink>
             </li>
           )
         })}

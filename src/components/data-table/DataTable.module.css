@@ -2,7 +2,8 @@ table {
   width: 100%;
   border-spacing: 0;
   border: 1px solid black;
-  margin-bottom: 16px;
+  margin: 16px 0;
+  text-align: center;
 }
 th,
 td {
