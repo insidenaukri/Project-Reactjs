@@ -9,13 +9,12 @@ import LoadingSpinner from '../../components/loading/LoadingSpinner'
 export default function TimeEntries() {
   const [timeEntries, setTimeEntries] = useState([])
   const [message, setMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     // Should have organisationId from the logged in user
     // and pass it to instantly load correct entries
-     getTimeEntries()
-     setTimeout(() => setIsLoading(false), 5000)
+    getTimeEntries()
   }, [])
   const columns = [
     {
@@ -41,50 +40,42 @@ export default function TimeEntries() {
     },
   ]
 
-
- 
-  
-
   const getTimeEntries = async (organisationId) => {
-  
-    setIsLoading(true); 
     try {
       const response = await api.get(`/time-entries/${organisationId}`)
       setTimeEntries(response.data)
-      setIsLoading(false)
     } catch (error) {
       console.error(error)
     }
   }
-console.log(timeEntries,"timeEntries")
+
   const importTimeEntries = async () => {
-    setIsLoading(true);
-    
+    setIsLoading(true)
+
     try {
-      const response = await api.get('/time-entries/import');
-       console.log(response);
+      const response = await api.get('/time-entries/import')
 
       if (response.data) {
         setMessage('Successfully imported all time entries!')
-        setIsLoading(false);
+        setIsLoading(false)
       }
     } catch (error) {
       setMessage('Something went wrong when importing time entries, try again or contact support.')
-      setIsLoading(false);
+      setIsLoading(false)
       console.error(error)
     }
   }
 
   return (
     <main>
-   
       {message && <p className={styles.message}>{message}</p>}
       <div className={styles.header}>
         <FilterOptions selectedOrganisation={(organisation) => getTimeEntries(organisation.id)} />
-        <Button onClick={() => importTimeEntries()} disabled={isLoading}>Import entries</Button>
+        <Button onClick={() => importTimeEntries()} disabled={isLoading}>
+          Import entries
+        </Button>
       </div>
       {isLoading ? <LoadingSpinner /> : timeEntries.length ? <DataTable columns={columns} data={timeEntries} /> : ''}
-      {/* {timeEntries.length ? <DataTable columns={columns} data={timeEntries} /> : ''} */}
     </main>
   )
 }
