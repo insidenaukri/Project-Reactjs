@@ -5,7 +5,6 @@ import styles from './Sidebar.module.css'
 export default function Sidebar() {
   const mainRoutes = [
     { name: 'Bonus calculations', path: '/' },
-    { name: 'Bonus details', path: '/bonus-details' },
     { name: 'Bonus depts', path: '/bonus-depts' },
     { name: 'Import time entries', path: '/time-entries' },
     { name: 'Import salaries', path: '/salaries' },

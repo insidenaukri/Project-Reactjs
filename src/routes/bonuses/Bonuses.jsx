@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import api from '../../api'
 import DataTable from '../../components/data-table/DataTable'
 import FilterOptions from '../../components/filter-options/FilterOptions'
-import styles from './BonusCalculations.module.css'
+import styles from './Bonuses.module.css'
 
-export default function BonusCalculations() {
+export default function Bonuses() {
   const [bonuses, setBonuses] = useState([])
+  const [selectedRow, setSelectedRow] = useState({})
   const columns = [
     {
       Header: 'Bonus Calculations',
@@ -62,7 +63,7 @@ export default function BonusCalculations() {
   return (
     <main>
       <FilterOptions selectedOrganisation={(organisation) => getBonuses(organisation.id)} />
-      <DataTable columns={columns} data={bonuses} />
+      <DataTable columns={columns} data={bonuses} selectRow={(data) => setSelectedRow(data)} />
     </main>
   )
 }
