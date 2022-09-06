@@ -16,11 +16,11 @@ export default function FilterOptions({ selectedOrganisation }) {
     try {
       const response = await api.get('/organisations')
       setOrganisations(response.data)
+      console.log(response,'fdsafdh')
     } catch (error) {
       console.error(error)
     }
   }
-
   return organisations ? (
     <div className={styles.container}>
       <Select
