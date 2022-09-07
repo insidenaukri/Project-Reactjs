@@ -10,6 +10,7 @@ export default function Sidebar() {
     { name: 'Import salaries', path: '/salaries' },
     { name: 'Add expenses', path: '/expenses' },
     { name: 'Add extra bonuses', path: '/extra-bonuses' },
+   
   ]
 
   const configRoutes = [

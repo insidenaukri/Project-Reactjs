@@ -1,19 +1,21 @@
 import React, { useEffect, useMemo } from 'react'
 import { useState } from 'react'
-import api from '../../api'
+import api from '../../api/index'
 import FilterOptions from '../../components/filter-options/FilterOptions'
 import DataTable from '../../components/data-table/DataTable'
 import styles from './TimeEntries.module.css'
 import Button from '../../components/button/Button'
+import LoadingSpinner from '../../components/loading/LoadingSpinner'
 
 export default function TimeEntries() {
   const [timeEntries, setTimeEntries] = useState([])
   const [message, setMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     // Should have organisationId from the logged in user
     // and pass it to instantly load correct entries
-    // getTimeEntries(orgId)
+    getTimeEntries()
   }, [])
   const columns = [
     {
@@ -41,7 +43,7 @@ export default function TimeEntries() {
 
   const getTimeEntries = async (organisationId) => {
     try {
-      const response = await api.get(`/time-entries/${organisationId}`)
+      const response = await api.get(`/time-entries/organisation/${organisationId}`)
       setTimeEntries(response.data)
     } catch (error) {
       console.error(error)
@@ -49,13 +51,18 @@ export default function TimeEntries() {
   }
 
   const importTimeEntries = async () => {
+    setIsLoading(true)
+
     try {
       const response = await api.get('/time-entries/import')
+
       if (response.data) {
         setMessage('Successfully imported all time entries!')
+        setIsLoading(false)
       }
     } catch (error) {
       setMessage('Something went wrong when importing time entries, try again or contact support.')
+      setIsLoading(false)
       console.error(error)
     }
   }
@@ -65,9 +72,11 @@ export default function TimeEntries() {
       {message && <p className={styles.message}>{message}</p>}
       <div className={styles.header}>
         <FilterOptions selectedOrganisation={(organisation) => getTimeEntries(organisation.id)} />
-        <Button onClick={() => importTimeEntries()}>Import entries</Button>
+        <Button onClick={() => importTimeEntries()} disabled={isLoading}>
+          Import entries
+        </Button>
       </div>
-      <DataTable columns={columns} data={timeEntries} />
+      {isLoading ? <LoadingSpinner /> : timeEntries.length ? <DataTable columns={columns} data={timeEntries} /> : ''}
     </main>
   )
 }
