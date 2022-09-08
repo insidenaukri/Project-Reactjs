@@ -43,6 +43,7 @@ export default function TimeEntries() {
 
   const getTimeEntries = async (organisationId) => {
     try {
+      if (!organisationId) return
       const response = await api.get(`/time-entries/organisation/${organisationId}`)
       setTimeEntries(response.data)
     } catch (error) {

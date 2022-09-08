@@ -3,14 +3,12 @@ import { useRef } from 'react'
 import { useState } from 'react'
 import styles from './Select.module.css'
 
-export default function Select({ name, options, placeholder, handleChange, selected }) {
+export default function Select({ options, placeholder, handleChange, selected }) {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState()
-  const [filteredArray, setFilteredArray] = useState([])
   const ref = useRef(null)
 
   useEffect(() => {
-    filteredOptions()
     if (selected && options.length) setSelectedOption(options[0].name)
   }, [])
 
@@ -32,28 +30,13 @@ export default function Select({ name, options, placeholder, handleChange, selec
     setIsOpen(false)
   }
 
-  const filteredOptions = () => {
-    let filteredArray
-    if (name) {
-      let tempObject = {}
-      filteredArray = options.map((option) => {
-        const key = name || ''
-        tempObject = { name: option[key], ...option }
-        return tempObject
-      })
-    } else {
-      filteredArray = options
-    }
-    setFilteredArray(filteredArray)
-  }
-
   return (
     <div ref={ref} onClick={() => setIsOpen(!isOpen)} className={styles.select}>
       <span className={styles.text}>{selectedOption ? selectedOption : placeholder}</span>
       <span className="material-icons"> {isOpen ? 'arrow_drop_up' : 'arrow_drop_down'}</span>
       {isOpen && (
         <ul className={styles.options}>
-          {filteredArray.map((option, index) => {
+          {options.map((option, index) => {
             return (
               <li className={styles.option} onClick={() => selectOption(option)} key={index}>
                 {option.name || option}

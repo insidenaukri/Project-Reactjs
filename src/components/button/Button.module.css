@@ -10,7 +10,8 @@
   font-size: 1rem;
   cursor: pointer;
   height: 40px;
-  width: 100%;
+  min-width: 100px;
+  padding: 0 10px;
 }
 
 .button:focus {

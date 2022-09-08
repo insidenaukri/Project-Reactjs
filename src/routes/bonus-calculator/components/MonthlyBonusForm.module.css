@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+
+  & .form {
+    width: 224px;
+    display: flex;
+    flex-direction: column;
+
+    & input {
+      display: flex;
+      margin-bottom: 16px;
+    }
+  }
+}
+
+.balance {
+  margin: 16px 0;
+  display: flex;
+
+  & p {
+    margin-right: 16px;
+  }
+}

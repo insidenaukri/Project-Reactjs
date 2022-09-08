@@ -16,6 +16,7 @@ export default function FilterOptions({ selectedOrganisation }) {
     try {
       const response = await api.get('/organisations')
       setOrganisations(response.data)
+      selectedOrganisation(response.data[0])
     } catch (error) {
       console.error(error)
     }
