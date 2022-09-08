@@ -39,7 +39,7 @@ export default function MonthlyBonusForm({ monthlyBonus, employee }) {
     employee && (
       <section>
         <h2>{employee.name}</h2>
-        <div className={styles.balance}>
+        <div className={styles.summary}>
           <p>
             Bonus qualifyingfee: <strong>{monthlyBonus.bonusQualifyingFee}</strong>
           </p>
@@ -53,42 +53,91 @@ export default function MonthlyBonusForm({ monthlyBonus, employee }) {
         <div className={styles.container}>
           <div className={styles.form}>
             <Input
+              type="number"
+              placeholder="Total time"
               value={bonusData.totalReportedTime}
-              label="Total time"
               name="totalReportedTime"
               onChange={handleChange}
             />
-            <Input value={bonusData.travelTime} label="Travel time" name="travelTime" onChange={handleChange} />
             <Input
+              type="number"
+              placeholder="Travel time"
+              value={bonusData.travelTime}
+              name="travelTime"
+              onChange={handleChange}
+            />
+            <Input
+              type="number"
+              placeholder="Unassigned time"
               value={bonusData.unassignedTime}
               label="Unassigned time"
               name="unassignedTime"
               onChange={handleChange}
             />
-            <Input value={bonusData.vacationTime} label="Vacation time" name="vacationTime" onChange={handleChange} />
+            <Input
+              type="number"
+              placeholder="Vacation time"
+              value={bonusData.vacationTime}
+              name="vacationTime"
+              onChange={handleChange}
+            />
           </div>
           <div className={styles.form}>
-            <Input value={bonusData.sickTime} label="Sick time" name="sickTime" onChange={handleChange} />
-            <Input value={bonusData.offDutyTime} label="Off duty time" name="offDutyTime" onChange={handleChange} />
-            <Input value={bonusData.compTime} label="Comp time" name="compTime" onChange={handleChange} />
             <Input
+              type="number"
+              placeholder="Sick time"
+              value={bonusData.sickTime}
+              name="sickTime"
+              onChange={handleChange}
+            />
+            <Input
+              type="number"
+              placeholder="Offduty time"
+              value={bonusData.offDutyTime}
+              name="offDutyTime"
+              onChange={handleChange}
+            />
+            <Input
+              type="number"
+              placeholder="Comp time"
+              value={bonusData.compTime}
+              name="compTime"
+              onChange={handleChange}
+            />
+            <Input
+              type="number"
+              placeholder="Vacation value"
               value={bonusData.valueOfVacation}
-              label="Value of vacation"
               name="valueOfVacation"
               onChange={handleChange}
             />
           </div>
 
           <div className={styles.form}>
-            <Input value={bonusData.netDeduction} label="Net deduction" name="netDeduction" onChange={handleChange} />
             <Input
+              type="number"
+              placeholder="Net deduction"
+              value={bonusData.netDeduction}
+              name="netDeduction"
+              onChange={handleChange}
+            />
+            <Input
+              type="number"
+              placeholder="Gross deduction"
               value={bonusData.grossDeduction}
-              label="Gross deduction"
               name="grossDeduction"
               onChange={handleChange}
             />
-            <Input value={bonusData.extraBonus} label="Extra bonuses" name="extraBonus" onChange={handleChange} />
             <Input
+              type="number"
+              placeholder="Extra bonus"
+              value={bonusData.extraBonus}
+              name="extraBonus"
+              onChange={handleChange}
+            />
+            <Input
+              type="number"
+              placeholder="Bonus overtime"
               value={bonusData.bonusQualifyingOverTime}
               label="Bonusqualifying over time"
               name="bonusQualifyingOverTime"
@@ -98,26 +147,29 @@ export default function MonthlyBonusForm({ monthlyBonus, employee }) {
 
           <div className={styles.form}>
             <Input
+              type="number"
+              placeholder="Bonus amount"
               value={bonusData.bonusQualifyingAmount}
-              label="Bonusqualifying amount"
               name="bonusQualifyingAmount"
               onChange={handleChange}
             />
             <Input
+              placeholder="Basis salary"
               value={bonusData.calculationBasisSalary}
-              label="Basis salary"
               name="calculationBasisSalary"
               onChange={handleChange}
             />
             <Input
+              type="number"
+              placeholder="Bonus time"
               value={bonusData.bonusQualifyingTime}
-              label="Bonusqualifying time"
               name="bonusQualifyingTime"
               onChange={handleChange}
             />
             <Input
+              type="number"
+              placeholder="Bonus time (not comp)"
               value={bonusData.bonusQualifyingTimeNotComp}
-              label="Bonusqualifying time (not comp)"
               name="bonusQualifyingTimeNotComp"
               onChange={handleChange}
             />

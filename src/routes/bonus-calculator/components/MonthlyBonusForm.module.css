@@ -2,22 +2,22 @@
   display: flex;
 
   & .form {
-    width: 224px;
+    width: 220px;
     display: flex;
     flex-direction: column;
-
-    & input {
-      display: flex;
-      margin-bottom: 16px;
-    }
+    margin-right: 16px;
   }
 }
 
-.balance {
-  margin: 16px 0;
-  display: flex;
+h2 {
+  margin-bottom: 8px;
+}
+
+.summary {
+  margin-bottom: 20px;
 
   & p {
-    margin-right: 16px;
+    font-size: 16px;
+    margin-bottom: 4px;
   }
 }
