@@ -16,3 +16,6 @@ td {
     border-right: 0;
   }
 }
+td {
+  cursor: pointer;
+}

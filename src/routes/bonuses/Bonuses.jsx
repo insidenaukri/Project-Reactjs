@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import api from '../../api'
 import DataTable from '../../components/data-table/DataTable'
 import FilterOptions from '../../components/filter-options/FilterOptions'
+import Button from '../../components/button/Button'
 import styles from './Bonuses.module.css'
 
 export default function Bonuses() {
+  const navigateTo = useNavigate()
   const [bonuses, setBonuses] = useState([])
-  const [selectedRow, setSelectedRow] = useState({})
+  const [organisationId, setOrganisationId] = useState('')
+
   const columns = [
     {
       Header: 'Bonus Calculations',
@@ -29,7 +34,7 @@ export default function Bonuses() {
         },
         {
           Header: 'Extra bonuses',
-          accessor: 'extra_bonuses',
+          accessor: 'extra_bonus',
         },
         {
           Header: 'Deductions',
@@ -37,7 +42,7 @@ export default function Bonuses() {
         },
         {
           Header: 'Total bonus',
-          accessor: 'bonus_total',
+          accessor: 'bonus_balance',
         },
         {
           Header: 'Approved',
@@ -46,24 +51,35 @@ export default function Bonuses() {
       ],
     },
   ]
-  useEffect(() => {
-    // Should have organisationId from the logged in user
-    // and pass it to instantly load correct bonuses
-    // getBonuses(organisationId)
-  }, [])
 
   const getBonuses = async (organisationId) => {
     try {
       const response = await api.get(`/bonuses/${organisationId}`)
+      setOrganisationId(organisationId)
       setBonuses(response.data)
     } catch (error) {
       console.error(error)
     }
   }
+
+  const calculateAll = async () => {
+    try {
+      // Todo: this should come from filter options!
+      const date = new Date()
+      const response = await api.post('/bonuses/calculate', { organisationId, date })
+      if (response.data.length) getBonuses(organisationId)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <main>
       <FilterOptions selectedOrganisation={(organisation) => getBonuses(organisation.id)} />
-      <DataTable columns={columns} data={bonuses} selectRow={(data) => setSelectedRow(data)} />
+      <div className={styles.buttons}>
+        <Button onClick={calculateAll}>Calculate all</Button>
+      </div>
+      <DataTable columns={columns} data={bonuses} selectRow={(data) => navigateTo(`/bonuses/${data.id}`)} />
     </main>
   )
 }

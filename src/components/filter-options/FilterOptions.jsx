@@ -35,6 +35,7 @@ export default function FilterOptions({ selectedOrganisation }) {
         handleChange={(organsiation) => selectedOrganisation(organsiation)}
       />
       <Select
+        selected={organisations[0].name}
         placeholder="Organisation"
         options={organisations}
         handleChange={(organsiation) => selectedOrganisation(organsiation)}

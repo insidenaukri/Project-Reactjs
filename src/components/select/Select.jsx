@@ -5,12 +5,12 @@ import styles from './Select.module.css'
 
 export default function Select({ options, placeholder, handleChange, selected }) {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedOption, setSelectedOption] = useState()
+  const [selectedOption, setSelectedOption] = useState('')
   const ref = useRef(null)
 
   useEffect(() => {
-    if (selected && options.length) setSelectedOption(options[0].name)
-  }, [])
+    if (selected && options.length) setSelectedOption(selected)
+  }, [selected])
 
   useEffect(() => {
     function handleClickOutside(event) {
