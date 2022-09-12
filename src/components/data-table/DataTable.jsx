@@ -2,7 +2,7 @@ import React from 'react'
 import { useTable, usePagination } from 'react-table'
 import './DataTable.module.css'
 
-export default function Table({ columns, data }) {
+export default function Table({ columns, data, selectRow }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -42,7 +42,7 @@ export default function Table({ columns, data }) {
           {page.map((row, i) => {
             prepareRow(row)
             return (
-              <tr {...row.getRowProps()}>
+              <tr onClick={() => selectRow(row.original)} {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 })}

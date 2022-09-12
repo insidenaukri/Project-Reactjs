@@ -6,6 +6,7 @@ import DataTable from '../../components/data-table/DataTable'
 import styles from './TimeEntries.module.css'
 import Button from '../../components/button/Button'
 import LoadingSpinner from '../../components/loading/LoadingSpinner'
+
 export default function TimeEntries() {
   const [timeEntries, setTimeEntries] = useState([])
   const [message, setMessage] = useState('')
@@ -42,6 +43,7 @@ export default function TimeEntries() {
 
   const getTimeEntries = async (organisationId) => {
     try {
+      if (!organisationId) return
       const response = await api.get(`/time-entries/organisation/${organisationId}`)
       setTimeEntries(response.data)
     } catch (error) {
