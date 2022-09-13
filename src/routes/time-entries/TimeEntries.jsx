@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import api from '../../api/index'
 import FilterOptions from '../../components/filter-options/FilterOptions'
 import DataTable from '../../components/data-table/DataTable'
@@ -16,14 +15,9 @@ export default function TimeEntries() {
   const [selectedMonth, setSelectedMonth] = useState('')
 
   useEffect(() => {
-    // Should have organisationId from the logged in user
-    // and pass it to instantly load correct entries
-    getTimeEntries()
-  }, [])
-
-  useEffect(() => {
     if (organisationId && selectedYear && selectedMonth) getTimeEntries()
   }, [organisationId, selectedYear, selectedMonth])
+
   const columns = [
     {
       Header: 'Time Entries',
@@ -80,9 +74,6 @@ export default function TimeEntries() {
     <main>
       {message && <p className={styles.message}>{message}</p>}
       <div className={styles.header}>
-        {selectedMonth}
-        {selectedYear}
-        {organisationId}
         <FilterOptions
           selectedOrganisation={(organisation) => setOrganisationId(organisation.id)}
           selectedMonth={(month) => setSelectedMonth(month)}

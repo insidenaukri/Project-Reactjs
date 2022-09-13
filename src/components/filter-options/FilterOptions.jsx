@@ -27,9 +27,15 @@ export default function FilterOptions({ selectedOrganisation, selectedMonth, sel
 
   return organisations ? (
     <div className={styles.container}>
-      <Select placeholder="Year" options={YEARS} handleChange={(year) => selectedYear(year)} />
-      <Select placeholder="Month" options={MONTHS} handleChange={(month) => selectedMonth(month)} />
+      <Select selected={YEARS[0]} placeholder="Year" options={YEARS} handleChange={(year) => selectedYear(year)} />
       <Select
+        selected={MONTHS[0]}
+        placeholder="Month"
+        options={MONTHS}
+        handleChange={(month) => selectedMonth(month)}
+      />
+      <Select
+        selected={organisations && organisations[0].name}
         placeholder="Organisation"
         options={organisations}
         handleChange={(organsiation) => selectedOrganisation(organsiation)}

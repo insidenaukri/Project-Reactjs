@@ -3,9 +3,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import api from '../../api'
 import DataTable from '../../components/data-table/DataTable'
-import styles from './BonusDetails.module.css'
 import MonthlyBonusForm from './components/MonthlyBonusForm'
-import Button from '../../components/button/Button'
 
 export default function BonusDetails() {
   const { bonusId } = useParams()
@@ -52,6 +50,7 @@ export default function BonusDetails() {
 
   const getTimeEntries = async (employeeId) => {
     try {
+      // Todo: add queries year and month in params from monthlyBonus object
       const response = await api.get(`/time-entries/${employeeId}`)
       setTimeEntries(response.data)
     } catch (error) {
