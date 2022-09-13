@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import api from '../../api/index'
 import FilterOptions from '../../components/filter-options/FilterOptions'
@@ -11,12 +11,19 @@ export default function TimeEntries() {
   const [timeEntries, setTimeEntries] = useState([])
   const [message, setMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [organisationId, setOrganisationId] = useState('')
+  const [selectedYear, setSelectedYear] = useState('')
+  const [selectedMonth, setSelectedMonth] = useState('')
 
   useEffect(() => {
     // Should have organisationId from the logged in user
     // and pass it to instantly load correct entries
     getTimeEntries()
   }, [])
+
+  useEffect(() => {
+    if (organisationId && selectedYear && selectedMonth) getTimeEntries()
+  }, [organisationId, selectedYear, selectedMonth])
   const columns = [
     {
       Header: 'Time Entries',
@@ -41,10 +48,11 @@ export default function TimeEntries() {
     },
   ]
 
-  const getTimeEntries = async (organisationId) => {
+  const getTimeEntries = async () => {
     try {
-      if (!organisationId) return
-      const response = await api.get(`/time-entries/organisation/${organisationId}`)
+      const response = await api.get(
+        `/time-entries/organisation/${organisationId}?&year=${selectedYear}?&month=${selectedMonth}`,
+      )
       setTimeEntries(response.data)
     } catch (error) {
       console.error(error)
@@ -72,7 +80,14 @@ export default function TimeEntries() {
     <main>
       {message && <p className={styles.message}>{message}</p>}
       <div className={styles.header}>
-        <FilterOptions selectedOrganisation={(organisation) => getTimeEntries(organisation.id)} />
+        {selectedMonth}
+        {selectedYear}
+        {organisationId}
+        <FilterOptions
+          selectedOrganisation={(organisation) => setOrganisationId(organisation.id)}
+          selectedMonth={(month) => setSelectedMonth(month)}
+          selectedYear={(year) => setSelectedYear(year)}
+        />
         <Button onClick={() => importTimeEntries()} disabled={isLoading}>
           Import entries
         </Button>

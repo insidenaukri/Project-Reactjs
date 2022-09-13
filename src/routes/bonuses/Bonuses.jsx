@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import api from '../../api'
 import DataTable from '../../components/data-table/DataTable'
 import FilterOptions from '../../components/filter-options/FilterOptions'
@@ -11,6 +10,8 @@ export default function Bonuses() {
   const navigateTo = useNavigate()
   const [bonuses, setBonuses] = useState([])
   const [organisationId, setOrganisationId] = useState('')
+  const [selectedYear, setSelectedYear] = useState('')
+  const [selectedMonth, setSelectedMonth] = useState('')
 
   const columns = [
     {
@@ -52,7 +53,11 @@ export default function Bonuses() {
     },
   ]
 
-  const getBonuses = async (organisationId) => {
+  useEffect(() => {
+    if (organisationId && selectedYear && selectedMonth) getBonuses()
+  }, [organisationId, selectedYear, selectedMonth])
+
+  const getBonuses = async () => {
     try {
       const response = await api.get(`/bonuses/${organisationId}`)
       setOrganisationId(organisationId)
@@ -75,7 +80,11 @@ export default function Bonuses() {
 
   return (
     <main>
-      <FilterOptions selectedOrganisation={(organisation) => getBonuses(organisation.id)} />
+      <FilterOptions
+        selectedOrganisation={(organisation) => setOrganisationId(organisation.id)}
+        selectedMonth={(month) => setSelectedMonth(month)}
+        selectedYear={(year) => setSelectedYear(year)}
+      />
       <div className={styles.buttons}>
         <Button onClick={calculateAll}>Calculate all</Button>
       </div>
