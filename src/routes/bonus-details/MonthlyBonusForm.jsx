@@ -1,10 +1,8 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import Input from '../../../components/input/Input'
+import React, { useEffect, useState } from 'react'
+import Input from '../../components/input/Input'
 import styles from './MonthlyBonusForm.module.css'
 
-export default function MonthlyBonusForm({ monthlyBonus, employee }) {
+export function MonthlyBonusForm({ monthlyBonus, employee }) {
   const [bonusData, setBonusData] = useState({
     reported_time: 0,
     travel_time: 0,

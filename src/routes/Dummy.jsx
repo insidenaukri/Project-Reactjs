@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Modal from '../components/modal/Modal'
 
-export default function Dummy() {
+export function Dummy() {
   const [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {

@@ -1,19 +1,18 @@
-import React, { useEffect, useMemo } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import api from '../../api/index'
-import FilterOptions from '../../components/filter-options/FilterOptions'
-import DataTable from '../../components/data-table/DataTable'
+import { FilterOptions } from '../../components/filter-options/'
+import { DataTable } from '../../components/data-table/'
+import { Button } from '../../components/button/'
+import { LoadingSpinner } from '../../components/loading/'
 import styles from './TimeEntries.module.css'
-import Button from '../../components/button/Button'
-import LoadingSpinner from '../../components/loading/LoadingSpinner'
 
-export default function TimeEntries() {
+export function TimeEntries() {
   const [timeEntries, setTimeEntries] = useState([])
   const [message, setMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    // Should have organisationId from the logged in user
+    // TODO: Should have organisationId from the logged in user
     // and pass it to instantly load correct entries
     getTimeEntries()
   }, [])

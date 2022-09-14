@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import api from '../../api'
-import DataTable from '../../components/data-table/DataTable'
-import FilterOptions from '../../components/filter-options/FilterOptions'
-import Button from '../../components/button/Button'
+import { DataTable } from '../../components/data-table/'
+import { FilterOptions } from '../../components/filter-options/'
+import { Button } from '../../components/button/'
 import styles from './Bonuses.module.css'
 
-export default function Bonuses() {
+export function Bonuses() {
   const navigateTo = useNavigate()
   const [bonuses, setBonuses] = useState([])
   const [organisationId, setOrganisationId] = useState('')

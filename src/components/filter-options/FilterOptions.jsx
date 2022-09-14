@@ -1,11 +1,9 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import api from '../../api'
-import Select from '../Select/Select'
+import { Select } from '../select/'
 import styles from './FilterOptions.module.css'
 
-export default function FilterOptions({ selectedOrganisation }) {
+export function FilterOptions({ selectedOrganisation }) {
   const [organisations, setOrganisations] = useState(null)
 
   useEffect(() => {
