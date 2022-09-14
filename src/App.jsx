@@ -12,6 +12,7 @@ import Footer from './components/footer/Footer'
 import Sidebar from './components/sidebar/Sidebar'
 import 'material-icons'
 import { Snackbar } from './components/snackbar/Snackbar'
+import Organisations from './routes/organisations/Organisations'
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/" element={<Bonuses />} />
           <Route path="/bonuses/:bonusId" element={<BonusDetails />} />
           <Route path="/time-entries" element={<TimeEntries />} />
+          <Route path="/organisations" element={<Organisations />} />
           <Route path="/dummy" element={<Dummy />} />
           <Route path="/healthcheck" element={<Healthcheck />} />
           <Route path="/error" element={<HttpError />} />
