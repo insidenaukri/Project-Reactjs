@@ -2,6 +2,7 @@ import React from 'react'
 import DataTable from '../../components/data-table/DataTable'
 import Input from '../../components/input/Input'
 import Button from '../../components/button/Button'
+import styles from './organisations.module.css'
 import api from '../../api'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -13,6 +14,7 @@ export default function Organisations() {
   const [organisationName, setOrganisationName] = useState('')
   const [error, setError] = useState('')
   const [open, setOpen] = useState(false)
+  const [deleteOrganisation, setDeleteOrganisation] = useState(false)
 
   useEffect(() => {
     getOrganisations()
@@ -35,6 +37,17 @@ export default function Organisations() {
         {
           Header: 'Id',
           accessor: 'id',
+        },
+        {
+          Header: '',
+          accessor: 'delete',
+          Cell : () => {
+            return (
+              <>
+              <Button children="Delete"onClick={() =>{setDeleteOrganisation(true)}}/>
+              </>
+            );
+          }
         },
       ],
     },
@@ -63,8 +76,20 @@ export default function Organisations() {
 
   const createOrganisation = async () => {
     try {
+      if (organisationName.trim().length < 1) return setError('Please provide a name')
       const organisation = { name: organisationName }
       await api.post('/organisations', organisation)
+      getOrganisations()
+      closeModal()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const removeOrganisation = async () => {
+    try {
+      const orgId = selectedOrganisation.id
+      await api.delete(`/organisations/${orgId}`)
       getOrganisations()
       closeModal()
     } catch (error) {
@@ -75,10 +100,11 @@ export default function Organisations() {
   const closeModal = () => {
     setSelectedOrganisation(null)
     setOpen(false)
+    setDeleteOrganisation(false)
     setError('')
     setOrganisationName('')
   }
-
+  
   return (
     <main>
       <Button onClick={() => setOpen(true)}>Create organisation</Button>
@@ -114,6 +140,18 @@ export default function Organisations() {
           <div>
             <Button onClick={createOrganisation}>Create</Button>
             <Button onClick={closeModal}>Close</Button>
+          </div>
+        </div>
+      </Modal>
+      <Modal setIsOpen={closeModal} isOpen={deleteOrganisation}>
+        <div>
+          <div className={styles.deleteText}>
+           Are you sure you want to delete? <br/> 
+           Organisation: <b className={styles.textColor}>{organisationName}</b>
+          </div>
+          <div>
+            <Button onClick={removeOrganisation}>Yes</Button>
+            <Button onClick={closeModal}>Cancel</Button>
           </div>
         </div>
       </Modal>
