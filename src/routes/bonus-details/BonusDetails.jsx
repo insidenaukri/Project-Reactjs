@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import api from '../../api'
+import { MONTHS } from '../../helpers/constants'
+import { formatDate } from '../../helpers/date'
 import { DataTable } from '../../components/data-table/'
 import { MonthlyBonusForm } from './MonthlyBonusForm'
-import styles from './BonusDetails.module.css'
 
 export function BonusDetails() {
   const { bonusId } = useParams()
@@ -42,15 +43,21 @@ export function BonusDetails() {
     try {
       const response = await api.get(`/bonuses/bonus/${bonusId}`)
       setMonthlyBonus(response.data)
-      getTimeEntries(response.data.employee_id)
+      await getTimeEntries(response.data.employee_id, response.data.date)
     } catch (error) {
       console.error()
     }
   }
 
-  const getTimeEntries = async (employeeId) => {
+  const getTimeEntries = async (employeeId, createdDate) => {
     try {
-      const response = await api.get(`/time-entries/${employeeId}`)
+      const date = new Date(createdDate)
+      let month = date.getMonth()
+      month = MONTHS[month]
+      const year = date.getFullYear()
+
+      const { fromDate, maxDate } = formatDate(year, month)
+      const response = await api.get(`/time-entries/${employeeId}?&fromDate=${fromDate}&maxDate=${maxDate}`)
       setTimeEntries(response.data)
     } catch (error) {
       console.error(error)
