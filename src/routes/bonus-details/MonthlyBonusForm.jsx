@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Input from '../../components/input/Input'
+import { Input } from '../../components/input/'
 import styles from './MonthlyBonusForm.module.css'
 
 export function MonthlyBonusForm({ monthlyBonus, employee }) {
@@ -32,13 +32,26 @@ export function MonthlyBonusForm({ monthlyBonus, employee }) {
     setBonusData({ ...bonusData, [event.target.name]: event.target.value })
   }
 
+  function inputFactory(type, placeholder, value, name, disabled) {
+    return (
+      <Input
+        onChange={handleChange}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        name={name}
+        disabled={disabled}
+      />
+    )
+  }
+
   return (
     monthlyBonus && (
       <section>
         <div className={styles.summary}>
           <h2>{employee}</h2>
           <p>
-            Bonus qualifyingfee: <strong>{monthlyBonus.bonus_qualifying_fee}</strong>
+            Bonus qualifying fee: <strong>{monthlyBonus.bonus_qualifying_fee}</strong>
           </p>
           <p>
             Bonus outcome: <strong>{monthlyBonus.bonus_outcome}</strong>
@@ -49,142 +62,44 @@ export function MonthlyBonusForm({ monthlyBonus, employee }) {
         </div>
         <div className={styles.container}>
           <div className={styles.form}>
-            <Input
-              type="number"
-              placeholder="Total time"
-              value={bonusData.reported_time}
-              name="reported_time"
-              onChange={handleChange}
-              disabled
-            />
-            <Input
-              type="number"
-              placeholder="Travel time"
-              value={bonusData.travel_time}
-              name="travel_time"
-              onChange={handleChange}
-              disabled
-            />
-            <Input
-              type="number"
-              placeholder="Unassigned time"
-              value={bonusData.unassigned_time}
-              label="Unassigned time"
-              name="unassigned_time"
-              onChange={handleChange}
-              disabled
-            />
-            <Input
-              type="number"
-              placeholder="Vacation time"
-              value={bonusData.vacation_time}
-              name="vacation_time"
-              onChange={handleChange}
-              disabled
-            />
+            {[
+              ['number', 'Total time', bonusData.reported_time, 'reported_time', true],
+              ['number', 'Travel time', bonusData.travel_time, 'travel_time', true],
+              ['number', 'Unassigned time', bonusData.unassigned_time, 'unassigned_time', true],
+              ['number', 'Vacation time', bonusData.vacation_time, 'vacation_time', true],
+            ].map(inputFactory)}
           </div>
           <div className={styles.form}>
-            <Input
-              type="number"
-              placeholder="Sick time"
-              value={bonusData.sick_time}
-              name="sick_time"
-              onChange={handleChange}
-              disabled
-            />
-            <Input
-              type="number"
-              placeholder="Offduty time"
-              value={bonusData.offduty_time}
-              name="offduty_time"
-              onChange={handleChange}
-              disabled
-            />
-            <Input
-              type="number"
-              placeholder="Comp time"
-              value={bonusData.comp_time}
-              name="comp_time"
-              onChange={handleChange}
-              disabled
-            />
-            <Input
-              type="number"
-              placeholder="Vacation value"
-              value={bonusData.value_of_vacation}
-              name="value_of_vacation"
-              onChange={handleChange}
-              disabled
-            />
+            {[
+              ['number', 'Sick time', bonusData.reported_time, 'sick_time', true],
+              ['number', 'Offduty time', bonusData.offduty_time, 'offduty_time', true],
+              ['number', 'Comp time', bonusData.comp_time, 'comp_time', true],
+              ['number', 'Vacation value', bonusData.value_of_vacation, 'vacation_time', true],
+            ].map(inputFactory)}
           </div>
 
           <div className={styles.form}>
-            <Input
-              type="number"
-              placeholder="Net deduction"
-              value={bonusData.net_deduction}
-              name="net_deduction"
-              onChange={handleChange}
-            />
-            <Input
-              type="number"
-              placeholder="Gross deduction"
-              value={bonusData.gross_deduction}
-              name="gross_deduction"
-              onChange={handleChange}
-              disabled
-            />
-            <Input
-              type="number"
-              placeholder="Extra bonus"
-              value={bonusData.extra_bonus}
-              name="extra_bonus"
-              onChange={handleChange}
-              disabled
-            />
-            <Input
-              type="number"
-              placeholder="Bonus overtime"
-              value={bonusData.bonus_qualifying_overtime}
-              label="Bonusqualifying over time"
-              name="bonus_qualifying_overtime"
-              onChange={handleChange}
-              disabled
-            />
+            {[
+              ['number', 'Net deduction', bonusData.net_deduction, 'net_deduction', false],
+              ['number', 'Gross deduction', bonusData.gross_deduction, 'gross_deduction', true],
+              ['number', 'Extra bonus', bonusData.extra_bonus, 'extra_bonus', true],
+              ['number', 'Bonus overtime', bonusData.bonus_qualifying_overtime, 'bonus_qualifying_overtime', true],
+            ].map(inputFactory)}
           </div>
 
           <div className={styles.form}>
-            <Input
-              type="number"
-              placeholder="Bonus amount"
-              value={bonusData.bonus_qualifying_amount}
-              name="bonus_qualifying_amount"
-              onChange={handleChange}
-              disabled
-            />
-            <Input
-              placeholder="Basis salary"
-              value={bonusData.calculation_basis_salary}
-              name="calculation_basis_salary"
-              onChange={handleChange}
-              disabled
-            />
-            <Input
-              type="number"
-              placeholder="Bonus time"
-              value={bonusData.bonus_qualifying_time}
-              name="bonus_qualifying_time"
-              onChange={handleChange}
-              disabled
-            />
-            <Input
-              type="number"
-              placeholder="Bonus time (not comp)"
-              value={bonusData.bonus_qualifying_time_not_comp}
-              name="bonus_qualifying_time_not_comp"
-              onChange={handleChange}
-              disabled
-            />
+            {[
+              ['number', 'Bonus amount', bonusData.bonus_qualifying_amount, 'bonus_qualifying_amount', true],
+              ['number', 'Basis salary', bonusData.calculation_basis_salary, 'calculation_basis_salary', true],
+              ['number', 'Bonus time', bonusData.bonus_qualifying_time, 'bonus_qualifying_time', true],
+              [
+                'number',
+                'Bonus time (not comp)',
+                bonusData.bonus_qualifying_time_not_comp,
+                'bonus_qualifying_time_not_comp',
+                true,
+              ],
+            ].map(inputFactory)}
           </div>
         </div>
       </section>
