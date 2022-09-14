@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-
+import api from '../../api'
 import styles from './Sidebar.module.css'
 
 export default function Sidebar() {
@@ -47,6 +47,18 @@ export default function Sidebar() {
             </li>
           )
         })}
+        <li>
+          <NavLink
+            to="/"
+            onClick={() => {
+              api.get('/auth/logout').then(() => {
+                window.open('/', '_self')
+              })
+            }}
+          >
+            Log Out
+          </NavLink>
+        </li>
       </ul>
     </aside>
   )

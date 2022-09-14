@@ -1,5 +1,5 @@
-import 'material-icons'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Main from './routes/Main'
 import Dummy from './routes/Dummy'
 import Healthcheck from './routes/Healthcheck'
 import HttpError from './routes/HttpError'
@@ -7,30 +7,21 @@ import TimeEntries from './routes/time-entries/TimeEntries'
 import NotFound from './routes/NotFound'
 import Bonuses from './routes/bonuses/Bonuses'
 import BonusDetails from './routes/bonus-details/BonusDetails'
-import Header from './components/header/Header'
-import Footer from './components/footer/Footer'
-import Sidebar from './components/sidebar/Sidebar'
-import 'material-icons'
-import { Snackbar } from './components/snackbar/Snackbar'
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <Snackbar />
-      <div className="page-wrapper">
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<Bonuses />} />
+      <Routes>
+        <Route path="/" element={<Main />}>
+          <Route index element={<Bonuses />} />
           <Route path="/bonuses/:bonusId" element={<BonusDetails />} />
           <Route path="/time-entries" element={<TimeEntries />} />
           <Route path="/dummy" element={<Dummy />} />
           <Route path="/healthcheck" element={<Healthcheck />} />
           <Route path="/error" element={<HttpError />} />
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
-      <Footer />
+        </Route>
+      </Routes>
     </BrowserRouter>
   )
 }
