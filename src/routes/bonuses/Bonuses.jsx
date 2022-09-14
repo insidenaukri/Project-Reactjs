@@ -5,6 +5,7 @@ import DataTable from '../../components/data-table/DataTable'
 import FilterOptions from '../../components/filter-options/FilterOptions'
 import Button from '../../components/button/Button'
 import styles from './Bonuses.module.css'
+import { formatDate } from '../../helpers/date'
 
 export default function Bonuses() {
   const navigateTo = useNavigate()
@@ -59,7 +60,8 @@ export default function Bonuses() {
 
   const getBonuses = async () => {
     try {
-      const response = await api.get(`/bonuses/${organisationId}`)
+      const { fromDate } = formatDate(selectedYear, selectedMonth)
+      const response = await api.get(`/bonuses/${organisationId}?&date=${fromDate}`)
       setOrganisationId(organisationId)
       setBonuses(response.data)
     } catch (error) {
@@ -69,9 +71,11 @@ export default function Bonuses() {
 
   const calculateAll = async () => {
     try {
-      // Todo: this should come from filter options!
-      const date = new Date()
-      const response = await api.post('/bonuses/calculate', { organisationId, date })
+      const { fromDate } = formatDate(selectedYear, selectedMonth)
+      const response = await api.post('/bonuses/calculate', {
+        organisationId,
+        date: fromDate,
+      })
       if (response.data.length) getBonuses(organisationId)
     } catch (error) {
       console.error(error)
@@ -80,12 +84,12 @@ export default function Bonuses() {
 
   return (
     <main>
-      <FilterOptions
-        selectedOrganisation={(organisation) => setOrganisationId(organisation.id)}
-        selectedMonth={(month) => setSelectedMonth(month)}
-        selectedYear={(year) => setSelectedYear(year)}
-      />
-      <div className={styles.buttons}>
+      <div className={styles.header}>
+        <FilterOptions
+          selectedOrganisation={(organisation) => setOrganisationId(organisation.id)}
+          selectedMonth={(month) => setSelectedMonth(month)}
+          selectedYear={(year) => setSelectedYear(year)}
+        />
         <Button onClick={calculateAll}>Calculate all</Button>
       </div>
       <DataTable columns={columns} data={bonuses} selectRow={(data) => navigateTo(`/bonuses/${data.id}`)} />

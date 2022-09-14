@@ -8,11 +8,13 @@ import { MONTHS, YEARS } from '../../helpers/constants'
 
 export default function FilterOptions({ selectedOrganisation, selectedMonth, selectedYear }) {
   const [organisations, setOrganisations] = useState(null)
+  const currentMonth = MONTHS[new Date().getMonth() - 1]
+  const currentYear = new Date().getFullYear()
 
   useEffect(() => {
     getOrganisations()
-    selectedMonth(MONTHS[0])
-    selectedYear(YEARS[0])
+    selectedMonth(currentMonth)
+    selectedYear(currentYear)
   }, [])
 
   const getOrganisations = async () => {
@@ -29,7 +31,7 @@ export default function FilterOptions({ selectedOrganisation, selectedMonth, sel
     <div className={styles.container}>
       <Select selected={YEARS[0]} placeholder="Year" options={YEARS} handleChange={(year) => selectedYear(year)} />
       <Select
-        selected={MONTHS[0]}
+        selected={currentMonth}
         placeholder="Month"
         options={MONTHS}
         handleChange={(month) => selectedMonth(month)}

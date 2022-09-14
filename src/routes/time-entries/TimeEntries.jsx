@@ -5,6 +5,7 @@ import DataTable from '../../components/data-table/DataTable'
 import styles from './TimeEntries.module.css'
 import Button from '../../components/button/Button'
 import LoadingSpinner from '../../components/loading/LoadingSpinner'
+import { formatDate } from '../../helpers/date'
 
 export default function TimeEntries() {
   const [timeEntries, setTimeEntries] = useState([])
@@ -44,8 +45,9 @@ export default function TimeEntries() {
 
   const getTimeEntries = async () => {
     try {
+      const { fromDate, maxDate } = formatDate(selectedYear, selectedMonth)
       const response = await api.get(
-        `/time-entries/organisation/${organisationId}?&year=${selectedYear}?&month=${selectedMonth}`,
+        `/time-entries/organisation/${organisationId}?&fromDate=${fromDate}&maxDate=${maxDate}`,
       )
       setTimeEntries(response.data)
     } catch (error) {
@@ -55,10 +57,8 @@ export default function TimeEntries() {
 
   const importTimeEntries = async () => {
     setIsLoading(true)
-
     try {
       const response = await api.get('/time-entries/import')
-
       if (response.data) {
         setMessage('Successfully imported all time entries!')
         setIsLoading(false)
