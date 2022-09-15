@@ -42,6 +42,7 @@ export default function FilterOptions({ selectedOrganisation, selectedMonth, sel
         options={organisations}
         handleChange={(organsiation) => selectedOrganisation(organsiation)}
       />
+       
     </div>
   ) : null
 }
