@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import api from '../../api'
-import DataTable from '../../components/data-table/DataTable'
 import { MONTHS } from '../../helpers/constants'
 import { formatDate } from '../../helpers/date'
-import MonthlyBonusForm from './components/MonthlyBonusForm'
+import { DataTable } from '../../components/data-table/'
+import { MonthlyBonusForm } from './MonthlyBonusForm'
 
-export default function BonusDetails() {
+export function BonusDetails() {
   const { bonusId } = useParams()
   const [timeEntries, setTimeEntries] = useState([])
   const [monthlyBonus, setMonthlyBonus] = useState(null)

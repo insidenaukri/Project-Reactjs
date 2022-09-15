@@ -1,6 +1,6 @@
-import ApiHealthcheck from '../components/utils/ApiHealthcheck'
+import { ApiHealthcheck } from '../components/utils/'
 
-export default function Healthcheck() {
+export function Healthcheck() {
   return (
     <main>
       <h2>Healthcheck</h2>

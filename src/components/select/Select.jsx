@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react'
-import { useRef } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './Select.module.css'
 
-export default function Select({ options, placeholder, handleChange, selected }) {
+export function Select({ options, placeholder, handleChange, selected }) {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState('')
   const ref = useRef(null)

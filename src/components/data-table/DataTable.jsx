@@ -2,7 +2,7 @@ import React from 'react'
 import { useTable, usePagination } from 'react-table'
 import './DataTable.module.css'
 
-export default function Table({ columns, data, selectRow }) {
+export function DataTable({ columns, data, selectRow }) {
   const {
     getTableProps,
     getTableBodyProps,

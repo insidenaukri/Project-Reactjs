@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Input.module.css'
 
-export default function Input({ type, value, onChange, placeholder, name, disabled, error }) {
+export function Input({ type, value, onChange, placeholder, name, disabled, error }) {
   return (
     <div>
       <div className={styles.container}>

@@ -1,14 +1,12 @@
-import React from 'react'
-import DataTable from '../../components/data-table/DataTable'
-import Input from '../../components/input/Input'
-import Button from '../../components/button/Button'
-import styles from './organisations.module.css'
+import React, { useEffect, useState } from 'react'
 import api from '../../api'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import Modal from '../../components/modal/Modal'
+import { DataTable } from '../../components/data-table/'
+import { Input } from '../../components/input/'
+import { Button } from '../../components/button/'
+import { Modal } from '../../components/modal/'
+import styles from './organisations.module.css'
 
-export default function Organisations() {
+export function Organisations() {
   const [organisations, setOrganisations] = useState([])
   const [selectedOrganisation, setSelectedOrganisation] = useState(null)
   const [organisationName, setOrganisationName] = useState('')
@@ -41,13 +39,18 @@ export default function Organisations() {
         {
           Header: '',
           accessor: 'delete',
-          Cell : () => {
+          Cell: () => {
             return (
               <>
-              <Button children="Delete"onClick={() =>{setDeleteOrganisation(true)}}/>
+                <Button
+                  children="Delete"
+                  onClick={() => {
+                    setDeleteOrganisation(true)
+                  }}
+                />
               </>
-            );
-          }
+            )
+          },
         },
       ],
     },
@@ -104,7 +107,7 @@ export default function Organisations() {
     setError('')
     setOrganisationName('')
   }
-  
+
   return (
     <main>
       <Button onClick={() => setOpen(true)}>Create organisation</Button>
@@ -146,8 +149,8 @@ export default function Organisations() {
       <Modal setIsOpen={closeModal} isOpen={deleteOrganisation}>
         <div>
           <div className={styles.deleteText}>
-           Are you sure you want to delete? <br/> 
-           Organisation: <b className={styles.textColor}>{organisationName}</b>
+            Are you sure you want to delete? <br />
+            Organisation: <b className={styles.textColor}>{organisationName}</b>
           </div>
           <div>
             <Button onClick={removeOrganisation}>Yes</Button>

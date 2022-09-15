@@ -1,4 +1,4 @@
-export default function HttpError() {
+export function HttpError() {
   const codeParam = new URLSearchParams(document.location.search).get('code')
 
   const code = codeParam ? codeParam : ''
