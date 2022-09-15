@@ -6,7 +6,7 @@ import { MONTHS, YEARS } from '../../helpers/constants'
 
 export function FilterOptions({ selectedOrganisation, selectedMonth, selectedYear }) {
   const [organisations, setOrganisations] = useState(null)
-  const currentMonth = MONTHS[new Date().getMonth() - 1]
+  const currentMonth = MONTHS[new Date().getMonth()]
   const currentYear = new Date().getFullYear()
 
   useEffect(() => {

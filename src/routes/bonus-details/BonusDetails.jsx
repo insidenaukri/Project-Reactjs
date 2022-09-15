@@ -53,10 +53,11 @@ export function BonusDetails() {
     try {
       const date = new Date(createdDate)
       let month = date.getMonth()
-      month = MONTHS[month]
+      // Get the correct start month if selected is Jan
+      month = month === 0 ? MONTHS[MONTHS.length - 1] : MONTHS[month - 1]
       const year = date.getFullYear()
-
       const { fromDate, maxDate } = formatDate(year, month)
+
       const response = await api.get(`/time-entries/${employeeId}?&fromDate=${fromDate}&maxDate=${maxDate}`)
       setTimeEntries(response.data)
     } catch (error) {
