@@ -14,7 +14,7 @@ const defaultStyles = {
 const appElementId = 'root'
 ReactModal.setAppElement(`#${appElementId}`)
 
-export default function Modal({ isOpen, setIsOpen, styles, children }) {
+export function Modal({ isOpen, setIsOpen, styles, children }) {
   function onAfterOpen() {}
 
   function close() {

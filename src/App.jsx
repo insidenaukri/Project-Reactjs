@@ -8,6 +8,7 @@ import { Header } from './components/header/'
 import { Footer } from './components/footer/'
 import { Sidebar } from './components/sidebar/'
 import { Snackbar } from './components/snackbar/'
+import { Organisations } from './routes/organisations/'
 
 export function App() {
   return (
@@ -20,6 +21,7 @@ export function App() {
           <Route path="/" element={<Bonuses />} />
           <Route path="/bonuses/:bonusId" element={<BonusDetails />} />
           <Route path="/time-entries" element={<TimeEntries />} />
+          <Route path="/organisations" element={<Organisations />} />
           <Route path="/dummy" element={<Dummy />} />
           <Route path="/healthcheck" element={<Healthcheck />} />
           <Route path="/error" element={<HttpError />} />
