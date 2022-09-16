@@ -6,7 +6,7 @@ export function Input({ type, value, onChange, placeholder, name, disabled, erro
     <div>
       <div className={styles.container}>
         <input disabled={disabled} className={styles.input} type={type} name={name} onChange={onChange} value={value} />
-        <label className={value && styles.filled}>{placeholder}</label>
+        <label className={[styles.label, value && styles.filled].join(' ')}>{placeholder}</label>
       </div>
       {error ? <p className={styles.error}>{error}</p> : ''}
     </div>
