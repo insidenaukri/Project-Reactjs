@@ -73,10 +73,27 @@ useEffect(() => {
     }
   ]
 
+  const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  // const validateEmail = (email) => {
+  //   const re =
+      
+  //   return re.test(String(email).toLowerCase());
+  // };
   const createEmployee = async () => {
     try {
      if (empolyeeemail.name.trim().length < 1) return setError('Please provide a name')
      if (empolyeeemail.email.trim().length < 1) return setErro('Please provide a email')
+     if(regex.test(empolyeeemail.email)==false)return setErro('Please provide a valid email')
+    
+    //{
+      
+    //  }else{
+    //   setErro('')
+    //   return true
+    //  }
+     //if (validateEmail(empolyeeemail.email.trim().length < 1)) return setErro('Invalid Email')
+      
+     //if (empolyeeemail.email.trim().length < 1) return setErro('Please provide a email')
       const employee = {
             id:organisationId, 
             name:empolyeeemail.name, 
@@ -84,6 +101,7 @@ useEffect(() => {
             active:true,
             organisation_id:organisationId
         }
+        console.log(employee)
       await api.post('/employees', employee)
      await getEmployee()
       closeModal()
@@ -96,6 +114,7 @@ useEffect(() => {
     try {
       if (empolyeeemail.name.trim().length < 1) return setError('Please provide a name')
       if (empolyeeemail.email.trim().length < 1) return setErro('Please provide a email')
+      if(regex.test(empolyeeemail.email)==false)return setErro('Please provide a  valid email')
       const employee = {
             id:organisationId,
             name:empolyeeemail.name,
@@ -138,7 +157,7 @@ useEffect(() => {
             selectedYear={(year) => setSelectedYear(year)}
             />
       </div>
-           <Button onClick={() => setOpen(true)}>Create Employee</Button>
+           <Button onClick={() => setOpen(true)} >Create Employee</Button>
       <DataTable columns={columns} data={employees} selectRow={(row) => setSelectedEmployee(row)} />
       <Modal setIsOpen={closeModal} isOpen={selectedEmployee ? true : false}>
         <div>
@@ -161,7 +180,8 @@ useEffect(() => {
           {}
           
           <div>
-            <Button onClick={updateEmployee}>Save</Button>
+            <Button onClick={updateEmployee}
+            theme >Save</Button>
             <Button onClick={closeModal}>Close</Button>
           </div>
         </div>
