@@ -32,7 +32,8 @@ export function MonthlyBonusForm({ monthlyBonus, employee }) {
     setBonusData({ ...bonusData, [event.target.name]: event.target.value })
   }
 
-  function inputFactory(type, placeholder, value, name, disabled) {
+  function inputFactory(values) {
+    const [type, placeholder, value, name, disabled] = values
     return (
       <Input
         onChange={handleChange}
