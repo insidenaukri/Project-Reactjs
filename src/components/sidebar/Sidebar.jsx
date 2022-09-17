@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 
 import styles from './Sidebar.module.css'
 
-export default function Sidebar() {
+export function Sidebar() {
   const mainRoutes = [
     { name: 'Bonuses', path: '/' },
     { name: 'Bonus Depts', path: '/bonus-depts' },
@@ -15,7 +15,7 @@ export default function Sidebar() {
   const configRoutes = [
     { name: 'Employees', path: '/employees' },
     { name: 'Organisations', path: '/organisations' },
-    { name: 'Adminstrators', path: '/admins' },
+    { name: 'Administrators', path: '/admins' },
   ]
 
   const MainRoutesList = () => {

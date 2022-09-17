@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../api/index'
-import FilterOptions from '../../components/filter-options/FilterOptions'
-import DataTable from '../../components/data-table/DataTable'
-import styles from './TimeEntries.module.css'
-import Button from '../../components/button/Button'
-import LoadingSpinner from '../../components/loading/LoadingSpinner'
 import { formatDate } from '../../helpers/date'
+import { FilterOptions } from '../../components/filter-options/'
+import { DataTable } from '../../components/data-table/'
+import { Button } from '../../components/button/'
+import { LoadingSpinner } from '../../components/loading/'
+import styles from './TimeEntries.module.css'
 
-export default function TimeEntries() {
+export function TimeEntries() {
   const [timeEntries, setTimeEntries] = useState([])
   const [message, setMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)

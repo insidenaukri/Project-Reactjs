@@ -1,8 +1,14 @@
 import { useState } from 'react'
-import Modal from '../components/modal/Modal'
+import { Modal } from '../components/modal/'
+import { selectOrganisationId, selectUserEmail, selectUserId, updateUser, useUser } from '../contexts/user-context'
 
-export default function Dummy() {
+// TODO: This component is only used to enable miscellaneous functionality testing/verification. Scratch in the future!
+export function Dummy() {
   const [isOpen, setIsOpen] = useState(false)
+  const [state, dispatch] = useUser()
+  console.group('Dummy: INIT')
+  console.log('state', state)
+  console.groupEnd()
 
   function closeModal() {
     setIsOpen(false)
@@ -19,6 +25,25 @@ export default function Dummy() {
   return (
     <main>
       <h2>Dummy</h2>
+      <div>
+        <button onClick={() => updateUser(dispatch, 123, 'top@secret.com', 42)}>User 123</button>
+        <button onClick={() => updateUser(dispatch, 555, 'info@somewhere.com', 1234567890)}>User 555</button>
+        <fieldset style={{ display: 'flex' }} disabled={true}>
+          <legend>Set user</legend>
+          <div>
+            <label htmlFor="user-id">User Id: </label>
+            <input readOnly={true} type="text" id="user-id" value={selectUserId()} />
+          </div>
+          <div>
+            <label htmlFor="user-email">Email: </label>
+            <input readOnly={true} type="text" id="user-email" value={selectUserEmail()} />
+          </div>
+          <div>
+            <label htmlFor="organisation-id">Organisation Id: </label>
+            <input readOnly={true} type="text" id="organisation-id" value={selectOrganisationId()} />
+          </div>
+        </fieldset>
+      </div>
       <button onClick={openModal}>Open Modal</button>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} styles={modalStyles}>
         <h2>Hello from the Modal!</h2>
