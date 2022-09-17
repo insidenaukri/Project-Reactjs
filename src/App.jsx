@@ -9,7 +9,7 @@ import { Footer } from './components/footer/'
 import { Sidebar } from './components/sidebar/'
 import { Snackbar } from './components/snackbar/'
 import { Organisations } from './routes/organisations/'
-import Employees from './routes/employees/Employees'
+import { Employees } from './routes/employees/'
 import { UserProvider } from './contexts/user-context'
 
 export function App() {

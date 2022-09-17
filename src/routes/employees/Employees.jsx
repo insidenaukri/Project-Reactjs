@@ -7,7 +7,7 @@ import { Modal } from '../../components/modal/'
 import { FilterOptions } from '../../components/filter-options/'
 import styles from './Employees.module.css'
 
-export default function Employees() {
+export function Employees() {
   const [employees, setEmployees] = useState([])
   const [selectedEmployee, setSelectedEmployee] = useState(null)
   const [organisationId, setOrganisationId] = useState('')
@@ -161,6 +161,7 @@ export default function Employees() {
     }
   }
   const closeModal = () => {
+    setEmployee({ name: '', email: '' })
     setSelectedEmployee(null)
     setOpen(false)
     setDeleteEmployee(false)
