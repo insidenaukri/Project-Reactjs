@@ -9,101 +9,106 @@ import { useEffect } from 'react'
 import FilterOptions from '../../components/filter-options/FilterOptions'
 import Modal from '../../components/modal/Modal'
 
-export default function Organisations() {
+export default function Employees() {
+  const [employees, setEmployees] = useState([])
   const [selectedEmployee, setSelectedEmployee] = useState(null)
-  const [error, setError] = useState('')
   const [organisationId, setOrganisationId] = useState('')
   const [selectedYear, setSelectedYear] = useState('')
   const [selectedMonth, setSelectedMonth] = useState('')
   const [open, setOpen] = useState(false)
-  const [deleteEmployeeModel, SetDeleteEmployeeModel]= useState(false)
-  const [empolyeeemail, setEmpolyeeemail] =useState({name:'', email:''})
-  const [employees, setEmployees] = useState([])
-  const [erro, setErro] = useState('')
+  const [deleteEmployee, setDeleteEmployee] = useState(false)
+  const [employee, setEmployee] = useState({ name: '', email: '' })
+  const [errorName, setErrorName] = useState('')
+  const [errorEmail, setErrorEmail] = useState('')
 
-useEffect(() => {
-    if (organisationId && selectedYear && selectedMonth) getEmployee()
+  useEffect(() => {
+    if (organisationId && selectedYear && selectedMonth) getEmployees()
   }, [organisationId, selectedYear, selectedMonth])
 
   useEffect(() => {
     if (selectedEmployee) {
-        setEmpolyeeemail(selectedEmployee)
+      setEmployee(selectedEmployee)
     }
   }, [selectedEmployee])
 
-
-  const getEmployee = async () => {
+  const getEmployees = async () => {
     try {
-      const response = await api.get(`/employees/organisation/${organisationId}`,)
+      const response = await api.get(`/employees/organisation/${organisationId}`)
       setEmployees(response.data)
     } catch (error) {
       console.error(error)
     }
   }
 
-
   const columns = [
     {
       Header: 'Employees',
-        columns: [
-       
-           {
-            Header: 'Name',
-            accessor: 'name',
+      columns: [
+        {
+          Header: 'Name',
+          accessor: 'name',
+        },
+        {
+          Header: 'Id',
+          accessor: 'id',
+        },
+        {
+          Header: 'Email',
+          accessor: 'email',
+        },
+        {
+          Header: '',
+          accessor: 'delete',
+          Cell: () => {
+            return (
+              <>
+                <Button
+                  children="Delete"
+                  onClick={() => {
+                    setDeleteEmployee(true)
+                  }}
+                />
+              </>
+            )
           },
-          {
-            Header: 'Id',
-            accessor: 'id',
-          },
-          {
-            Header:'Email',
-            accessor:'email',
-          },{
-            Header: '',
-            accessor: 'delete',
-            Cell : () => {
-              return (
-                <>
-                <Button children="Delete"onClick={() =>{SetDeleteEmployeeModel(true)}}/>
-                </>
-              );
-            }
-          },
-        ]
-    }
+        },
+      ],
+    },
   ]
 
-  const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  // const validateEmail = (email) => {
-  //   const re =
-      
-  //   return re.test(String(email).toLowerCase());
-  // };
+  const regex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
   const createEmployee = async () => {
     try {
-     if (empolyeeemail.name.trim().length < 1) return setError('Please provide a name')
-     if (empolyeeemail.email.trim().length < 1) return setErro('Please provide a email')
-     if(regex.test(empolyeeemail.email)==false)return setErro('Please provide a valid email')
-    
-    //{
-      
-    //  }else{
-    //   setErro('')
-    //   return true
-    //  }
-     //if (validateEmail(empolyeeemail.email.trim().length < 1)) return setErro('Invalid Email')
-      
-     //if (empolyeeemail.email.trim().length < 1) return setErro('Please provide a email')
-      const employee = {
-            id:organisationId, 
-            name:empolyeeemail.name, 
-            email:empolyeeemail.email, 
-            active:true,
-            organisation_id:organisationId
-        }
-        console.log(employee)
-      await api.post('/employees', employee)
-     await getEmployee()
+      let errorCount = 0
+
+      if (employee.name.trim().length < 1) {
+        setErrorName('Please provide a name')
+        errorCount += 1
+      } else setErrorName('')
+
+      if (employee.email.trim().length < 1) {
+        setErrorEmail('Please provide a email')
+        errorCount += 1
+      } else setErrorEmail('')
+
+      if (regex.test(employee.email) == false) {
+        setErrorEmail('Please provide a valid email')
+        errorCount += 1
+      } else setErrorEmail('')
+
+      if (errorCount > 0) return
+
+      const objEmployee = {
+        name: employee.name,
+        email: employee.email,
+        active: true,
+        organisation_id: organisationId,
+      }
+      console.log(employee)
+      await api.post('/employees', objEmployee)
+      await getEmployees()
       closeModal()
     } catch (error) {
       console.error(error)
@@ -112,20 +117,36 @@ useEffect(() => {
 
   const updateEmployee = async () => {
     try {
-      if (empolyeeemail.name.trim().length < 1) return setError('Please provide a name')
-      if (empolyeeemail.email.trim().length < 1) return setErro('Please provide a email')
-      if(regex.test(empolyeeemail.email)==false)return setErro('Please provide a  valid email')
-      const employee = {
-            id:organisationId,
-            name:empolyeeemail.name,
-            email:empolyeeemail.email, 
-            active:true, 
-            organisation_id:organisationId
-        }
-        const res = await api.put('/employees',employee)
-        console.log(res,'res')
-        getEmployee()
-        closeModal()
+      let errorCount = 0
+
+      if (employee.name.trim().length < 1) {
+        setErrorName('Please provide a name')
+        errorCount += 1
+      } else setErrorName('')
+
+      if (employee.email.trim().length < 1) {
+        setErrorEmail('Please provide a email')
+        errorCount += 1
+      } else setErrorEmail('')
+
+      if (regex.test(employee.email) == false) {
+        setErrorEmail('Please provide a valid email')
+        errorCount += 1
+      } else setErrorEmail('')
+
+      if (errorCount > 0) return
+
+      const objEmployee = {
+        id: selectedEmployee.id,
+        name: employee.name,
+        email: employee.email,
+        active: true,
+        organisation_id: organisationId,
+      }
+      const res = await api.put('/employees', objEmployee)
+      console.log(res, 'res')
+      getEmployees()
+      closeModal()
     } catch (error) {
       console.error()
     }
@@ -133,9 +154,9 @@ useEffect(() => {
 
   const removeEmployee = async () => {
     try {
-      const orgId = empolyeeemail.id
-      await api.delete(`/employees/${orgId}`)
-      await getEmployee()
+      const employeeId = selectedEmployee.id
+      await api.delete(`/employees/${employeeId}`)
+      await getEmployees()
       closeModal()
     } catch (error) {
       console.error(error)
@@ -144,44 +165,44 @@ useEffect(() => {
   const closeModal = () => {
     setSelectedEmployee(null)
     setOpen(false)
-    SetDeleteEmployeeModel(false)
-    setError('')
+    setDeleteEmployee(false)
+    setErrorName('')
+    setErrorEmail('')
   }
-  
+
   return (
     <main>
-         <div className={styles.header}>
-            <FilterOptions
-            selectedOrganisation={(organisation) => setOrganisationId(organisation.id)}
-            selectedMonth={(month) => setSelectedMonth(month)}
-            selectedYear={(year) => setSelectedYear(year)}
-            />
+      <div className={styles.header}>
+        <FilterOptions
+          selectedOrganisation={(organisation) => setOrganisationId(organisation.id)}
+          selectedMonth={(month) => setSelectedMonth(month)}
+          selectedYear={(year) => setSelectedYear(year)}
+        />
       </div>
-           <Button onClick={() => setOpen(true)} >Create Employee</Button>
+      <Button onClick={() => setOpen(true)}>Create Employee</Button>
       <DataTable columns={columns} data={employees} selectRow={(row) => setSelectedEmployee(row)} />
       <Modal setIsOpen={closeModal} isOpen={selectedEmployee ? true : false}>
         <div>
           <Input
             type="text"
             placeholder="Name"
-            value={empolyeeemail.name}
-            onChange={(e) => setEmpolyeeemail({...empolyeeemail,name:e.target.value,})}
-            error={error}
+            value={employee.name}
+            onChange={(e) => setEmployee({ ...employee, name: e.target.value })}
+            error={errorName}
             label="Name"
           />
           <Input
             type="text"
-            placeholder="Name"
-            value={empolyeeemail.email}
-            onChange={(e) =>setEmpolyeeemail({...empolyeeemail,email:e.target.value})} 
-            error={erro}
-            label="Name"
+            placeholder="Email"
+            value={employee.email}
+            onChange={(e) => setEmployee({ ...employee, email: e.target.value })}
+            error={errorEmail}
+            label="Email"
           />
-          {}
-          
           <div>
-            <Button onClick={updateEmployee}
-            theme >Save</Button>
+            <Button onClick={updateEmployee} theme>
+              Save
+            </Button>
             <Button onClick={closeModal}>Close</Button>
           </div>
         </div>
@@ -191,29 +212,28 @@ useEffect(() => {
           <Input
             type="text"
             placeholder="Name"
-            onChange={(e) => setEmpolyeeemail({...empolyeeemail,name:e.target.value,})}
-            error={error}
+            onChange={(e) => setEmployee({ ...employee, name: e.target.value })}
+            error={errorName}
             label="Name"
           />
           <Input
             type="email"
             placeholder="Email"
-            onChange={(e) => setEmpolyeeemail({...empolyeeemail,email:e.target.value})}
-            error={erro}
-            label="Name"
+            onChange={(e) => setEmployee({ ...employee, email: e.target.value })}
+            error={errorEmail}
+            label="Email"
           />
-          {}
           <div>
             <Button onClick={createEmployee}>Create</Button>
             <Button onClick={closeModal}>Close</Button>
           </div>
         </div>
       </Modal>
-      <Modal setIsOpen={closeModal} isOpen={deleteEmployeeModel}>
+      <Modal setIsOpen={closeModal} isOpen={deleteEmployee}>
         <div>
           <div className={styles.deleteText}>
-           Are you sure you want to delete? <br/> 
-           Employee: <b className={styles.textColor}>{empolyeeemail.name}</b>
+            Are you sure you want to delete? <br />
+            Employee: <b className={styles.textColor}>{employee.name}</b>
           </div>
           <div>
             <Button onClick={removeEmployee}>Yes</Button>
