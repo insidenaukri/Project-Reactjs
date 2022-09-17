@@ -1,13 +1,11 @@
-import React from 'react'
-import DataTable from '../../components/data-table/DataTable'
-import Input from '../../components/input/Input'
-import Button from '../../components/button/Button'
-import styles from './Employees.module.css'
+import React, { useEffect, useState } from 'react'
 import api from '../../api'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import FilterOptions from '../../components/filter-options/FilterOptions'
-import Modal from '../../components/modal/Modal'
+import { DataTable } from '../../components/data-table/'
+import { Input } from '../../components/input/'
+import { Button } from '../../components/button/'
+import { Modal } from '../../components/modal/'
+import { FilterOptions } from '../../components/filter-options/'
+import styles from './Employees.module.css'
 
 export default function Employees() {
   const [employees, setEmployees] = useState([])
