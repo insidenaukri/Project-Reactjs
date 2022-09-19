@@ -47,6 +47,7 @@ export function Organisations() {
                   onClick={() => {
                     setDeleteOrganisation(true)
                   }}
+                  theme="error"
                 />
               </>
             )
@@ -125,7 +126,7 @@ export function Organisations() {
           {}
           <div>
             <Button onClick={updateOrganisation}>Save</Button>
-            <Button onClick={closeModal}>Close</Button>
+            <Button onClick={closeModal} theme="error">Close</Button>
           </div>
         </div>
       </Modal>
@@ -142,7 +143,7 @@ export function Organisations() {
           {}
           <div>
             <Button onClick={createOrganisation}>Create</Button>
-            <Button onClick={closeModal}>Close</Button>
+            <Button onClick={closeModal} theme="error">Close</Button>
           </div>
         </div>
       </Modal>
@@ -154,7 +155,7 @@ export function Organisations() {
           </div>
           <div>
             <Button onClick={removeOrganisation}>Yes</Button>
-            <Button onClick={closeModal}>Cancel</Button>
+            <Button onClick={closeModal} theme="error">Cancel</Button>
           </div>
         </div>
       </Modal>

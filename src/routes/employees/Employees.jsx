@@ -65,6 +65,7 @@ export function Employees() {
                   onClick={() => {
                     setDeleteEmployee(true)
                   }}
+                  theme="error"
                 />
               </>
             )
@@ -202,7 +203,7 @@ export function Employees() {
             <Button onClick={updateEmployee} theme>
               Save
             </Button>
-            <Button onClick={closeModal}>Close</Button>
+            <Button onClick={closeModal} theme="error">Close</Button>
           </div>
         </div>
       </Modal>
@@ -224,7 +225,7 @@ export function Employees() {
           />
           <div>
             <Button onClick={createEmployee}>Create</Button>
-            <Button onClick={closeModal}>Close</Button>
+            <Button onClick={closeModal} theme="error">Close</Button>
           </div>
         </div>
       </Modal>
@@ -236,7 +237,7 @@ export function Employees() {
           </div>
           <div>
             <Button onClick={removeEmployee}>Yes</Button>
-            <Button onClick={closeModal}>Cancel</Button>
+            <Button onClick={closeModal} theme="error">Cancel</Button>
           </div>
         </div>
       </Modal>

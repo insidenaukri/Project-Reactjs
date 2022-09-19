@@ -19,3 +19,38 @@
 .button:hover {
   background-color: var(--color-text-hover);
 }
+.button {
+  box-sizing: border-box;
+  color: #fff;
+  font-weight: 500;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 4px;
+  margin-right: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  height: 40px;
+  min-width: 100px;
+  padding: 0 10px;
+}
+.button:focus {
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05), 0px 0px 0px 4px #f4ebff;
+}
+.primary:hover {
+  background-color: var(--color-text-hover);
+}
+.error:hover {
+  background-color: #ce4351;
+}
+
+.primary {
+  background: var(--color-text-primary);
+  border: 1px solid #55b9e6;
+}
+.error {
+  background: #DC3545;
+  border: 1px solid #DC3545;
+}
+.warning {
+  background:#FFC107;
+  border: 1px solid #FFC107;
+}

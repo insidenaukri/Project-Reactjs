@@ -3,7 +3,7 @@ import api from '../../api/index'
 import { formatDate } from '../../helpers/date'
 import { FilterOptions } from '../../components/filter-options/'
 import { DataTable } from '../../components/data-table/'
-import { Button } from '../../components/button/'
+import { Button}  from '../../components/button/'
 import { LoadingSpinner } from '../../components/loading/'
 import styles from './TimeEntries.module.css'
 
