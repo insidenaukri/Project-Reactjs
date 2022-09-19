@@ -11,8 +11,6 @@ export function Employees() {
   const [employees, setEmployees] = useState([])
   const [selectedEmployee, setSelectedEmployee] = useState(null)
   const [organisationId, setOrganisationId] = useState('')
-  const [selectedYear, setSelectedYear] = useState('')
-  const [selectedMonth, setSelectedMonth] = useState('')
   const [open, setOpen] = useState(false)
   const [deleteEmployee, setDeleteEmployee] = useState(false)
   const [employee, setEmployee] = useState({ name: '', email: '' })
@@ -20,8 +18,8 @@ export function Employees() {
   const [errorEmail, setErrorEmail] = useState('')
 
   useEffect(() => {
-    if (organisationId && selectedYear && selectedMonth) getEmployees()
-  }, [organisationId, selectedYear, selectedMonth])
+    if (organisationId) getEmployees()
+  }, [organisationId])
 
   useEffect(() => {
     if (selectedEmployee) {
@@ -78,37 +76,41 @@ export function Employees() {
   const regex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
+  const validateUserInput = () => {
+    let errorCount = 0
+
+    if (employee.name.trim().length < 1) {
+      setErrorName('Please provide a name')
+      errorCount += 1
+    } else setErrorName('')
+
+    if (employee.email.trim().length < 1) {
+      setErrorEmail('Please provide a email')
+      errorCount += 1
+    } else setErrorEmail('')
+
+    if (regex.test(employee.email) == false) {
+      setErrorEmail('Please provide a valid email')
+      errorCount += 1
+    } else setErrorEmail('')
+
+    if (errorCount > 0) return
+  }
   const createEmployee = async () => {
     try {
-      let errorCount = 0
-
-      if (employee.name.trim().length < 1) {
-        setErrorName('Please provide a name')
-        errorCount += 1
-      } else setErrorName('')
-
-      if (employee.email.trim().length < 1) {
-        setErrorEmail('Please provide a email')
-        errorCount += 1
-      } else setErrorEmail('')
-
-      if (regex.test(employee.email) == false) {
-        setErrorEmail('Please provide a valid email')
-        errorCount += 1
-      } else setErrorEmail('')
-
-      if (errorCount > 0) return
-
-      const objEmployee = {
-        name: employee.name,
-        email: employee.email,
-        active: true,
-        organisation_id: organisationId,
+      validateUserInput()
+      if (employee.name) {
+        const objEmployee = {
+          name: employee.name,
+          email: employee.email,
+          active: true,
+          organisation_id: organisationId,
+        }
+        console.log(employee)
+        await api.post('/employees', objEmployee)
+        await getEmployees()
+        closeModal()
       }
-      console.log(employee)
-      await api.post('/employees', objEmployee)
-      await getEmployees()
-      closeModal()
     } catch (error) {
       console.error(error)
     }
@@ -116,36 +118,20 @@ export function Employees() {
 
   const updateEmployee = async () => {
     try {
-      let errorCount = 0
-
-      if (employee.name.trim().length < 1) {
-        setErrorName('Please provide a name')
-        errorCount += 1
-      } else setErrorName('')
-
-      if (employee.email.trim().length < 1) {
-        setErrorEmail('Please provide a email')
-        errorCount += 1
-      } else setErrorEmail('')
-
-      if (regex.test(employee.email) == false) {
-        setErrorEmail('Please provide a valid email')
-        errorCount += 1
-      } else setErrorEmail('')
-
-      if (errorCount > 0) return
-
-      const objEmployee = {
-        id: selectedEmployee.id,
-        name: employee.name,
-        email: employee.email,
-        active: true,
-        organisation_id: organisationId,
+      validateUserInput()
+      if (employee.name) {
+        const objEmployee = {
+          id: selectedEmployee.id,
+          name: employee.name,
+          email: employee.email,
+          active: true,
+          organisation_id: organisationId,
+        }
+        const res = await api.put('/employees', objEmployee)
+        console.log(res, 'res')
+        getEmployees()
+        closeModal()
       }
-      const res = await api.put('/employees', objEmployee)
-      console.log(res, 'res')
-      getEmployees()
-      closeModal()
     } catch (error) {
       console.error()
     }
@@ -173,11 +159,7 @@ export function Employees() {
   return (
     <main>
       <div className={styles.header}>
-        <FilterOptions
-          selectedOrganisation={(organisation) => setOrganisationId(organisation.id)}
-          selectedMonth={(month) => setSelectedMonth(month)}
-          selectedYear={(year) => setSelectedYear(year)}
-        />
+        <FilterOptions showDate={false} selectedOrganisation={(organisation) => setOrganisationId(organisation.id)} />
       </div>
       <Button onClick={() => setOpen(true)}>Create Employee</Button>
       <DataTable columns={columns} data={employees} selectRow={(row) => setSelectedEmployee(row)} />
@@ -203,7 +185,9 @@ export function Employees() {
             <Button onClick={updateEmployee} theme>
               Save
             </Button>
-            <Button onClick={closeModal} theme="error">Close</Button>
+            <Button onClick={closeModal} theme="error">
+              Close
+            </Button>
           </div>
         </div>
       </Modal>
@@ -225,7 +209,9 @@ export function Employees() {
           />
           <div>
             <Button onClick={createEmployee}>Create</Button>
-            <Button onClick={closeModal} theme="error">Close</Button>
+            <Button onClick={closeModal} theme="error">
+              Close
+            </Button>
           </div>
         </div>
       </Modal>
@@ -237,7 +223,9 @@ export function Employees() {
           </div>
           <div>
             <Button onClick={removeEmployee}>Yes</Button>
-            <Button onClick={closeModal} theme="error">Cancel</Button>
+            <Button onClick={closeModal} theme="error">
+              Cancel
+            </Button>
           </div>
         </div>
       </Modal>

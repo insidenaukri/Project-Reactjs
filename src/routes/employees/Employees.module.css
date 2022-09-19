@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 16px;
+    float: right;
   }
   .deleteText {
     margin-bottom: 20px;
