@@ -11,7 +11,11 @@
   --color-background: white;
   --color-text: #2e2d35;
   --color-text-primary: #55b9e6;
-  --color-text-hover: #339ecd;
+  --color-text-primary-hover: #339ecd;
+  --color-text-danger: #dc3545;
+  --color-text-danger-hover: #ce4351;
+  --color-text-warning: #ffc107;
+  --color-text-warning-hover: #e0a800;
   --font-family-main: 'PTSans-Regular', sans-serif;
   --font-family-bold: 'PTSans-Bold', sans-serif;
   --font-size-header: 20px;

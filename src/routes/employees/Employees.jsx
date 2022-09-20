@@ -62,7 +62,8 @@ export function Employees() {
                   children="Delete"
                   onClick={() => {
                     setDeleteEmployee(true)
-                  }}
+                  }} 
+                  theme="danger"
                 />
               </>
             )
@@ -218,7 +219,7 @@ export function Employees() {
             Employee: <b className={styles.textColor}>{employee.name}</b>
           </div>
           <div>
-            <Button onClick={removeEmployee}>Yes</Button>
+            <Button onClick={removeEmployee} theme="danger">Yes</Button>
             <Button onClick={closeModal}>Cancel</Button>
           </div>
         </div>
