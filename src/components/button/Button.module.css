@@ -1,6 +1,4 @@
 .button {
-  background: var(--color-text-primary);
-  border: 1px solid #55b9e6;
   box-sizing: border-box;
   color: #fff;
   font-weight: 500;
@@ -16,6 +14,27 @@
 .button:focus {
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05), 0px 0px 0px 4px #f4ebff;
 }
-.button:hover {
-  background-color: var(--color-text-hover);
+.button.primary {
+  background: var(--color-text-primary);
+  border: 1px solid var(--color-text-primary);
+}
+.button.primary:hover {
+  background: var(--color-text-primary-hover);
+  border: 1px solid var(--color-text-primary-hover);
+}
+.button.danger {
+  background: var(--color-text-danger);
+  border: 1px solid var(--color-text-danger);
+}
+.button.danger:hover {
+  background: var(--color-text-danger-hover);
+  border: 1px solid var(--color-text-danger-hover);
+}
+.button.warning {
+  background: var(--color-text-warning);
+  border: 1px solid var(--color-text-warning);
+}
+.button.warning:hover {
+  background: var(--color-text-warning-hover);
+  border: 1px solid var(--color-text-warning-hover);
 }

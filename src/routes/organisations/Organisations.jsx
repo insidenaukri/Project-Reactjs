@@ -47,6 +47,7 @@ export function Organisations() {
                   onClick={() => {
                     setDeleteOrganisation(true)
                   }}
+                  theme="danger"
                 />
               </>
             )
@@ -153,7 +154,7 @@ export function Organisations() {
             Organisation: <b className={styles.textColor}>{organisationName}</b>
           </div>
           <div>
-            <Button onClick={removeOrganisation}>Yes</Button>
+            <Button onClick={removeOrganisation} theme="danger">Yes</Button>
             <Button onClick={closeModal}>Cancel</Button>
           </div>
         </div>
