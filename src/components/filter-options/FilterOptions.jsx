@@ -4,15 +4,17 @@ import { Select } from '../select/'
 import styles from './FilterOptions.module.css'
 import { MONTHS, YEARS } from '../../helpers/constants'
 
-export function FilterOptions({ selectedOrganisation, selectedMonth, selectedYear }) {
+export function FilterOptions({ selectedOrganisation, selectedMonth, selectedYear, showDate = true }) {
   const [organisations, setOrganisations] = useState(null)
   const currentMonth = MONTHS[new Date().getMonth()]
   const currentYear = new Date().getFullYear()
 
   useEffect(() => {
     getOrganisations()
-    selectedMonth(currentMonth)
-    selectedYear(currentYear)
+    if (showDate) {
+      selectedMonth(currentMonth)
+      selectedYear(currentYear)
+    }
   }, [])
 
   const getOrganisations = async () => {
@@ -27,19 +29,30 @@ export function FilterOptions({ selectedOrganisation, selectedMonth, selectedYea
 
   return organisations ? (
     <div className={styles.container}>
-      <Select selected={YEARS[0]} placeholder="Year" options={YEARS} handleChange={(year) => selectedYear(year)} />
-      <Select
-        selected={currentMonth}
-        placeholder="Month"
-        options={MONTHS}
-        handleChange={(month) => selectedMonth(month)}
-      />
+      {' '}
+      {showDate && (
+        <>
+          {' '}
+          <Select
+            selected={YEARS[0]}
+            placeholder="Year"
+            options={YEARS}
+            handleChange={(year) => selectedYear(year)}
+          />{' '}
+          <Select
+            selected={currentMonth}
+            placeholder="Month"
+            options={MONTHS}
+            handleChange={(month) => selectedMonth(month)}
+          />{' '}
+        </>
+      )}{' '}
       <Select
         selected={organisations && organisations[0].name}
         placeholder="Organisation"
         options={organisations}
         handleChange={(organsiation) => selectedOrganisation(organsiation)}
-      />
+      />{' '}
     </div>
   ) : null
 }
