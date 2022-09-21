@@ -10,9 +10,9 @@ export function FilterOptions({ selectedOrganisation, selectedMonth, selectedYea
   const currentYear = new Date().getFullYear()
 
   useEffect(() => {
-    getOrganisations()
-    selectedMonth(currentMonth)
-    selectedYear(currentYear)
+    selectedOrganisation && getOrganisations()
+    selectedMonth && selectedMonth(currentMonth)
+    selectedYear && selectedYear(currentYear)
   }, [])
 
   const getOrganisations = async () => {
@@ -27,19 +27,25 @@ export function FilterOptions({ selectedOrganisation, selectedMonth, selectedYea
 
   return organisations ? (
     <div className={styles.container}>
-      <Select selected={YEARS[0]} placeholder="Year" options={YEARS} handleChange={(year) => selectedYear(year)} />
-      <Select
-        selected={currentMonth}
-        placeholder="Month"
-        options={MONTHS}
-        handleChange={(month) => selectedMonth(month)}
-      />
-      <Select
-        selected={organisations && organisations[0].name}
-        placeholder="Organisation"
-        options={organisations}
-        handleChange={(organsiation) => selectedOrganisation(organsiation)}
-      />
+      {selectedYear && (
+        <Select selected={YEARS[0]} placeholder="Year" options={YEARS} handleChange={(year) => selectedYear(year)} />
+      )}
+      {selectedMonth && (
+        <Select
+          selected={currentMonth}
+          placeholder="Month"
+          options={MONTHS}
+          handleChange={(month) => selectedMonth(month)}
+        />
+      )}
+      {selectedOrganisation && (
+        <Select
+          selected={organisations && organisations[0].name}
+          placeholder="Organisation"
+          options={organisations}
+          handleChange={(organsiation) => selectedOrganisation(organsiation)}
+        />
+      )}
     </div>
   ) : null
 }
