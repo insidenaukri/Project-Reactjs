@@ -48,7 +48,7 @@ export function BonusDepts() {
 
   return (
     <main>
-      <FilterOptions selectedOrganisation={(organisation) => setOrganisationId(organisation.id)} />
+      <FilterOptions selectedOrganisation={(organisation) => setOrganisationId(organisation.id)} showDate={false} />
       <DataTable columns={columns} data={bonuses} selectRow={(data) => navigateTo(`/bonuses/${data.id}`)} />
       <BonusDeptSum organisationId={organisationId} date={fromDate} />
     </main>
