@@ -85,6 +85,7 @@ export function BonusDetails() {
         calculationBasisSalary,
         bonusQualifyingFee,
         bonusQualifyingTimeNotComp,
+        date,
       } = updatedMonthlyBonus
 
       const response = await api.post('/bonuses/recalculate', {
@@ -101,8 +102,10 @@ export function BonusDetails() {
         calculationBasisSalary,
         bonusQualifyingFee,
         bonusQualifyingTimeNotComp,
+        employeeId: monthlyBonus.employeeId,
+        date,
       })
-      setMonthlyBonus(response.data)
+      setMonthlyBonus({ ...monthlyBonus, ...response.data })
     } catch (error) {
       console.error(error)
     }
