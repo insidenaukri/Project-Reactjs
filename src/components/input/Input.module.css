@@ -51,3 +51,7 @@
   margin-bottom: 16px;
   color: red;
 }
+.warningError {
+  margin-bottom: 16px;
+  color: rgba(231, 231, 54, 0.603);
+}
