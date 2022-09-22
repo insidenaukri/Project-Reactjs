@@ -6,20 +6,20 @@ import { Header } from '../../components/header'
 import { Snackbar } from '../../components/snackbar/Snackbar'
 import { Sidebar } from '../../components/sidebar'
 import { Footer } from '../../components/footer'
+import { updateUser, useUser } from '../../contexts'
 import 'material-icons'
 
 export function Main() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [state, dispatch] = useUser()
+
   useEffect(() => {
-    api.get('employees/me').then(() => {
-      // set the context here.
-      setIsAuthenticated(true)
+    api.get('employees/me').then((response) => {
+      const user = response.data
+      if (user) updateUser(dispatch, user.id, user.email, user.organisation_id)
     })
   }, [])
 
-  if (!isAuthenticated) {
-    return <Login />
-  }
+  if (!state.id) return <Login />
 
   return (
     <>
