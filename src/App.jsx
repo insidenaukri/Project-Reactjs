@@ -11,31 +11,31 @@ import { UserProvider } from './contexts/user-context'
 
 export function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />}>
-          <Route index element={<Bonuses />} />
-          {/* <UserProvider> */}
-          <Route path="/" element={<Bonuses />} />
-          <Route path="/bonuses/:bonusId" element={<BonusDetails />} />
-          <Route path="/bonus-depts" element={<BonusDepts />} />
-          <Route path="/time-entries" element={<TimeEntries />} />
-          <Route path="/organisations" element={<Organisations />} />
-          <Route path="/employees" element={<Employees />} />
-          <Route
-            path="/dummy"
-            element={
-              <UserProvider>
-                <Dummy />
-              </UserProvider>
-            }
-          />
-          <Route path="/healthcheck" element={<Healthcheck />} />
-          <Route path="/error" element={<HttpError />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-      {/* </UserProvider> */}
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />}>
+            <Route index element={<Bonuses />} />
+            <Route path="/" element={<Bonuses />} />
+            <Route path="/bonuses/:bonusId" element={<BonusDetails />} />
+            <Route path="/bonus-depts" element={<BonusDepts />} />
+            <Route path="/time-entries" element={<TimeEntries />} />
+            <Route path="/organisations" element={<Organisations />} />
+            <Route path="/employees" element={<Employees />} />
+            <Route
+              path="/dummy"
+              element={
+                <UserProvider>
+                  <Dummy />
+                </UserProvider>
+              }
+            />
+            <Route path="/healthcheck" element={<Healthcheck />} />
+            <Route path="/error" element={<HttpError />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </UserProvider>
   )
 }

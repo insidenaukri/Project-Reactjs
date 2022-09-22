@@ -1,8 +1,11 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import api from '../../api'
 import styles from './Sidebar.module.css'
+import { updateUser, useUser } from '../../contexts'
 
 export function Sidebar() {
+  const navigateTo = useNavigate()
+  const [state, dispatch] = useUser()
   const mainRoutes = [
     { name: 'Bonuses', path: '/' },
     { name: 'Bonus Depts', path: '/bonus-depts' },
@@ -17,6 +20,16 @@ export function Sidebar() {
     { name: 'Organisations', path: '/organisations' },
     { name: 'Administrators', path: '/admins' },
   ]
+
+  const logout = async () => {
+    try {
+      await api.get('/auth/logout')
+      navigateTo('/')
+      updateUser(dispatch, null)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const MainRoutesList = () => {
     return mainRoutes.map((route, index) => {
@@ -48,14 +61,7 @@ export function Sidebar() {
           )
         })}
         <li>
-          <NavLink
-            to="/"
-            onClick={() => {
-              api.get('/auth/logout').then(() => {
-                window.open('/', '_self')
-              })
-            }}
-          >
+          <NavLink to="/" onClick={() => logout()}>
             Log Out
           </NavLink>
         </li>
