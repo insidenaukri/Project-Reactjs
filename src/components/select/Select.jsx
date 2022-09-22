@@ -6,6 +6,7 @@ export function Select({ options, placeholder, handleChange, selected }) {
   const [selectedOption, setSelectedOption] = useState('')
   const ref = useRef(null)
 
+
   useEffect(() => {
     if (selected && options.length) setSelectedOption(selected)
   }, [selected])
@@ -27,6 +28,7 @@ export function Select({ options, placeholder, handleChange, selected }) {
     handleChange(option)
     setIsOpen(false)
   }
+ 
 
   return (
     <div ref={ref} onClick={() => setIsOpen(!isOpen)} className={styles.select}>
@@ -35,8 +37,9 @@ export function Select({ options, placeholder, handleChange, selected }) {
       {isOpen && (
         <ul className={styles.options}>
           {options.map((option, index) => {
+            console.log(option,'option')
             return (
-              <li className={styles.option} onClick={() => selectOption(option)} key={index}>
+              <li className={styles.option} onClick={() => selectOption(option.name)} key={index}>
                 {option.name || option}
               </li>
             )

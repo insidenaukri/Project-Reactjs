@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    float: right;
+  }
+  .deleteText {
+    margin-bottom: 20px;
+  }
+  .textColor {
+    color: #339ecd;
+  }
+  .btnTopmargin{
+      margin-top: 15px;
+  }

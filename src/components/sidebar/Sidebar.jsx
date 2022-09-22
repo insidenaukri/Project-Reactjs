@@ -15,7 +15,7 @@ export function Sidebar() {
   const configRoutes = [
     { name: 'Employees', path: '/employees' },
     { name: 'Organisations', path: '/organisations' },
-    { name: 'Administrators', path: '/admins' },
+    { name: 'Administrate', path: '/administrate' },
   ]
 
   const MainRoutesList = () => {

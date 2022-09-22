@@ -10,6 +10,7 @@ import { Sidebar } from './components/sidebar/'
 import { Snackbar } from './components/snackbar/'
 import { Organisations } from './routes/organisations/'
 import { Employees } from './routes/employees/'
+import { Administrate } from './routes/administrate'
 import { UserProvider } from './contexts/user-context'
 
 export function App() {
@@ -26,6 +27,7 @@ export function App() {
           <Route path="/time-entries" element={<TimeEntries />} />
           <Route path="/organisations" element={<Organisations />} />
           <Route path="/employees" element={<Employees/>}/>
+          <Route path ="/administrate" element={<Administrate/>}/>
           <Route
             path="/dummy"
             element={
