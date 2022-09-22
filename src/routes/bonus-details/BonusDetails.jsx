@@ -135,7 +135,9 @@ export function BonusDetails() {
       />
       <Button onClick={recalculate}>Recalculate</Button>
       <Button onClick={updateBonusMonth}>Save</Button>
-      <Button onClick={deleteBonusMonth} theme="danger">Delete</Button>
+      <Button onClick={deleteBonusMonth} theme="danger">
+        Delete
+      </Button>
       <DataTable columns={columns} data={timeEntries} />
     </main>
   )

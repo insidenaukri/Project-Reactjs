@@ -1,14 +1,10 @@
-import 'material-icons'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Dummy, Healthcheck, HttpError, NotFound } from './routes/'
 import { TimeEntries } from './routes/time-entries/'
 import { Bonuses } from './routes/bonuses/'
 import { BonusDetails } from './routes/bonus-details/'
-import { BonusDepts } from "./routes/bonus-depts/"
-import { Header } from './components/header/'
-import { Footer } from './components/footer/'
-import { Sidebar } from './components/sidebar/'
-import { Snackbar } from './components/snackbar/'
+import { BonusDepts } from './routes/bonus-depts/'
+import { Main } from './routes/main/Main'
 import { Organisations } from './routes/organisations/'
 import { Employees } from './routes/employees/'
 import { UserProvider } from './contexts/user-context'
@@ -16,18 +12,16 @@ import { UserProvider } from './contexts/user-context'
 export function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <Snackbar />
-      <div className="page-wrapper">
-        <Sidebar />
-        {/* <UserProvider> */}
-        <Routes>
+      <Routes>
+        <Route path="/" element={<Main />}>
+          <Route index element={<Bonuses />} />
+          {/* <UserProvider> */}
           <Route path="/" element={<Bonuses />} />
           <Route path="/bonuses/:bonusId" element={<BonusDetails />} />
           <Route path="/bonus-depts" element={<BonusDepts />} />
           <Route path="/time-entries" element={<TimeEntries />} />
           <Route path="/organisations" element={<Organisations />} />
-          <Route path="/employees" element={<Employees/>}/>
+          <Route path="/employees" element={<Employees />} />
           <Route
             path="/dummy"
             element={
@@ -39,10 +33,9 @@ export function App() {
           <Route path="/healthcheck" element={<Healthcheck />} />
           <Route path="/error" element={<HttpError />} />
           <Route path="*" element={<NotFound />} />
-        </Routes>
-        {/* </UserProvider> */}
-      </div>
-      <Footer />
+        </Route>
+      </Routes>
+      {/* </UserProvider> */}
     </BrowserRouter>
   )
 }

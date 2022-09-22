@@ -39,7 +39,7 @@ export function UserProvider({ children }) {
 
 export function useUser() {
   const context = useContext(UserContext)
-
+  console.log(context)
   if (!context) {
     throw new Error(`${useUser.name} requires ${UserContext.name}!`)
   }
