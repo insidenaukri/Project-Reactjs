@@ -4,6 +4,7 @@ import { Dummy, Healthcheck, HttpError, NotFound } from './routes/'
 import { TimeEntries } from './routes/time-entries/'
 import { Bonuses } from './routes/bonuses/'
 import { BonusDetails } from './routes/bonus-details/'
+import { BonusDepts } from "./routes/bonus-depts/"
 import { Header } from './components/header/'
 import { Footer } from './components/footer/'
 import { Sidebar } from './components/sidebar/'
@@ -23,6 +24,7 @@ export function App() {
         <Routes>
           <Route path="/" element={<Bonuses />} />
           <Route path="/bonuses/:bonusId" element={<BonusDetails />} />
+          <Route path="/bonus-depts" element={<BonusDepts />} />
           <Route path="/time-entries" element={<TimeEntries />} />
           <Route path="/organisations" element={<Organisations />} />
           <Route path="/employees" element={<Employees/>}/>
