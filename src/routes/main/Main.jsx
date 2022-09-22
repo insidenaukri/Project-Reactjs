@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
-
-import api from '../api'
-import Login from './login/Login'
-import Header from '../components/header/Header'
-import { Snackbar } from '../components/snackbar/Snackbar'
-import Sidebar from '../components/sidebar/Sidebar'
-import Footer from '../components/footer/Footer'
+import api from '../../api'
+import Login from '../login/Login'
+import { Header } from '../../components/header'
+import { Snackbar } from '../../components/snackbar/Snackbar'
+import { Sidebar } from '../../components/sidebar'
+import { Footer } from '../../components/footer'
 import 'material-icons'
 
-const Main = () => {
+export function Main() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   useEffect(() => {
     api.get('employees/me').then(() => {
@@ -34,5 +33,3 @@ const Main = () => {
     </>
   )
 }
-
-export default Main

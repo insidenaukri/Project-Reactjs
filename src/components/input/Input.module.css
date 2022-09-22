@@ -18,7 +18,7 @@
   outline: none;
 }
 
-label {
+.label {
   z-index: 100;
   position: absolute;
   pointer-events: none;
@@ -45,4 +45,13 @@ label {
 .container:focus-within label {
   transform: translate(-12px, -8px) scale(0.9);
   color: #55b9e6;
+}
+
+.error {
+  margin-bottom: 16px;
+  color: red;
+}
+.warningError {
+  margin-bottom: 16px;
+  color: rgba(231, 231, 54, 0.603);
 }

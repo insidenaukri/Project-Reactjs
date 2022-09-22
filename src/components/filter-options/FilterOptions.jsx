@@ -1,15 +1,20 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import api from '../../api'
-import Select from '../Select/Select'
+import { Select } from '../select/'
 import styles from './FilterOptions.module.css'
+import { MONTHS, YEARS } from '../../helpers/constants'
 
-export default function FilterOptions({ selectedOrganisation }) {
+export function FilterOptions({ selectedOrganisation, selectedMonth, selectedYear, showDate = true }) {
   const [organisations, setOrganisations] = useState(null)
+  const currentMonth = MONTHS[new Date().getMonth()]
+  const currentYear = new Date().getFullYear()
 
   useEffect(() => {
     getOrganisations()
+    if (showDate) {
+      selectedMonth(currentMonth)
+      selectedYear(currentYear)
+    }
   }, [])
 
   const getOrganisations = async () => {
@@ -24,22 +29,30 @@ export default function FilterOptions({ selectedOrganisation }) {
 
   return organisations ? (
     <div className={styles.container}>
+      {' '}
+      {showDate && (
+        <>
+          {' '}
+          <Select
+            selected={YEARS[0]}
+            placeholder="Year"
+            options={YEARS}
+            handleChange={(year) => selectedYear(year)}
+          />{' '}
+          <Select
+            selected={currentMonth}
+            placeholder="Month"
+            options={MONTHS}
+            handleChange={(month) => selectedMonth(month)}
+          />{' '}
+        </>
+      )}{' '}
       <Select
-        placeholder="Year"
-        options={['Todo']}
-        handleChange={(organsiation) => selectedOrganisation(organsiation)}
-      />
-      <Select
-        placeholder="Month"
-        options={['Todo']}
-        handleChange={(organsiation) => selectedOrganisation(organsiation)}
-      />
-      <Select
-        selected={organisations[0].name}
+        selected={organisations && organisations[0].name}
         placeholder="Organisation"
         options={organisations}
         handleChange={(organsiation) => selectedOrganisation(organsiation)}
-      />
+      />{' '}
     </div>
   ) : null
 }

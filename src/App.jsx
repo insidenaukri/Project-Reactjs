@@ -1,27 +1,41 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Main from './routes/Main'
-import Dummy from './routes/Dummy'
-import Healthcheck from './routes/Healthcheck'
-import HttpError from './routes/HttpError'
-import TimeEntries from './routes/time-entries/TimeEntries'
-import NotFound from './routes/NotFound'
-import Bonuses from './routes/bonuses/Bonuses'
-import BonusDetails from './routes/bonus-details/BonusDetails'
+import { Dummy, Healthcheck, HttpError, NotFound } from './routes/'
+import { TimeEntries } from './routes/time-entries/'
+import { Bonuses } from './routes/bonuses/'
+import { BonusDetails } from './routes/bonus-details/'
+import { BonusDepts } from './routes/bonus-depts/'
+import { Main } from './routes/main/Main'
+import { Organisations } from './routes/organisations/'
+import { Employees } from './routes/employees/'
+import { UserProvider } from './contexts/user-context'
 
-export default function App() {
+export function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />}>
           <Route index element={<Bonuses />} />
+          {/* <UserProvider> */}
+          <Route path="/" element={<Bonuses />} />
           <Route path="/bonuses/:bonusId" element={<BonusDetails />} />
+          <Route path="/bonus-depts" element={<BonusDepts />} />
           <Route path="/time-entries" element={<TimeEntries />} />
-          <Route path="/dummy" element={<Dummy />} />
+          <Route path="/organisations" element={<Organisations />} />
+          <Route path="/employees" element={<Employees />} />
+          <Route
+            path="/dummy"
+            element={
+              <UserProvider>
+                <Dummy />
+              </UserProvider>
+            }
+          />
           <Route path="/healthcheck" element={<Healthcheck />} />
           <Route path="/error" element={<HttpError />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
+      {/* </UserProvider> */}
     </BrowserRouter>
   )
 }
