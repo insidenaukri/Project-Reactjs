@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './Select.module.css'
-
-export function Select({ options, placeholder, handleChange, selected }) {
+export function Select({ options, placeholder, handleChange, selected, }) {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState('')
   const ref = useRef(null)
@@ -23,29 +22,29 @@ export function Select({ options, placeholder, handleChange, selected }) {
     }
   }, [ref])
 
-  const selectOption = (option) => {
+  const selectOption = (option, data) => {
+    console.log(option,"option")
     setSelectedOption(option.name ? option.name : option)
-    handleChange(option)
+    handleChange(data)
     setIsOpen(false)
   }
  
 
   return (
     <div ref={ref} onClick={() => setIsOpen(!isOpen)} className={styles.select}>
-      <span className={styles.text}>{selectedOption ? selectedOption : placeholder}</span>
+      { <span className={styles.text}>{selectedOption ? selectedOption : placeholder}</span> }
       <span className="material-icons"> {isOpen ? 'arrow_drop_up' : 'arrow_drop_down'}</span>
       {isOpen && (
         <ul className={styles.options}>
-          {options.map((option, index) => {
-            console.log(option,'option')
+          {options.map((option, index) => {            
             return (
-              <li className={styles.option} onClick={() => selectOption(option.name)} key={index}>
-                {option.name || option}
+              <li className={styles.option} onClick={() => {selectOption(option.name, option)}} key={index}>
+                {option.name || option}                
               </li>
             )
           })}
         </ul>
-      )}
+      )}      
     </div>
   )
 }

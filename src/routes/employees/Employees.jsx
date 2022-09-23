@@ -106,7 +106,6 @@ export function Employees() {
           active: true,
           organisation_id: organisationId,
         }
-        console.log(employee)
         await api.post('/employees', objEmployee)
         await getEmployees()
         closeModal()

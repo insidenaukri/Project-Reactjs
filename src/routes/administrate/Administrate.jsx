@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../api'
 import { DataTable } from '../../components/data-table'
-import { Input } from '../../components/input'
 import { Button } from '../../components/button'
 import { Modal } from '../../components/modal'
 import { FilterOptions } from '../../components/filter-options'
@@ -13,14 +12,11 @@ export function Administrate() {
   const [selectedEmployee, setSelectedEmployee] = useState(null)
   const [organisationId, setOrganisationId] = useState('')
   const [open, setOpen] = useState(false)
-  const [deleteEmployee, setDeleteEmployee] = useState(false)
+  const [makeUser, setmakeUser] = useState(false)
   const [employee, setEmployee] = useState({ name: '', email: '' })
-  const [errorName, setErrorName] = useState('')
-  const [errorEmail, setErrorEmail] = useState('')
-//
   const [role, setRole] = useState('')
   const [options, setOptions] = useState('')
-
+ 
   useEffect(() => {
     if (organisationId) getEmployees()
   }, [organisationId])
@@ -33,8 +29,6 @@ export function Administrate() {
   }, [selectedEmployee])
 
   const getEmployees = async () => {
-    console.log(organisationId,"eret")
-    
     try {
       const response = await api.get(`/employees/organisation/${organisationId}`)
       setEmployees(response.data)
@@ -45,8 +39,7 @@ export function Administrate() {
     }
   }
 
- //const options=["user", "admin"]
-  console.log(role,'veer')
+ 
   const columns = [
     {
       Header: 'Administrations',
@@ -70,9 +63,9 @@ export function Administrate() {
             return (
               <>
                 <Button
-                  children="Delete"
+                  children="Make User"
                   onClick={() => {
-                    setDeleteEmployee(true)
+                    setmakeUser(true)
                   }}
                   theme="error"
                 />
@@ -84,45 +77,19 @@ export function Administrate() {
     },
   ]
 
-  const regex =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
-  const validateUserInput = () => {
-    let errorCount = 0
-
-    if (employee.name.trim().length < 1) {
-      setErrorName('Please provide a name')
-      errorCount += 1
-    } else setErrorName('')
-
-    if (employee.email.trim().length < 1) {
-      setErrorEmail('Please provide a email')
-      errorCount += 1
-    } else setErrorEmail('')
-
-    if (regex.test(employee.email) == false) {
-      setErrorEmail('Please provide a valid email')
-      errorCount += 1
-    } else setErrorEmail('')
-
-    if (errorCount > 0) return
-  }
-  const createEmployee = async () => {
+  const createAdministration = async () => {
     try {
-      validateUserInput()
-      if (employee.name) {
         const objEmployee = {
-          name: employee.name,
-          email: employee.email,
+          id:role.id,
+          name: role.name,
+          email: role.email,
           active: true,
           organisation_id: organisationId,
-          role:role,
+          role:'admin',
         }
-        console.log(objEmployee)
-        await api.post('/employees', objEmployee)
+       await api.put('/employees', objEmployee)
         await getEmployees()
         closeModal()
-      }
     } catch (error) {
       console.error(error)
     }
@@ -130,44 +97,28 @@ export function Administrate() {
   
   const updateAdministration = async () => {
     try {
-      validateUserInput()
-      if (employee.name) {
         const objEmployee = {
-          id: selectedEmployee.id,
+          id: employee.id,
           name: employee.name,
           email: employee.email,
           active: true,
           organisation_id: organisationId,
           role:'user',
         }
-        console.log(objEmployee,"objEmployee")
          const res = await api.put('/employees', objEmployee)
         console.log(res, 'res')
         getEmployees()
         closeModal()
-      }
     } catch (error) {
       console.error()
     }
   }
 
-  const removeEmployee = async () => {
-    try {
-      const employeeId = selectedEmployee.id
-      await api.delete(`/employees/${employeeId}`)
-      await getEmployees()
-      closeModal()
-    } catch (error) {
-      console.error(error)
-    }
-  }
   const closeModal = () => {
     setEmployee({ name: '', email: '' })
     setSelectedEmployee(null)
     setOpen(false)
-    setDeleteEmployee(false)
-    setErrorName('')
-    setErrorEmail('')
+    setmakeUser(false)
   }
   const filteredItems = employees.filter(item => item.role === "admin")
 
@@ -178,59 +129,29 @@ export function Administrate() {
       </div>
       <Button onClick={() => setOpen(true)}>Create Administration</Button>
       <DataTable columns={columns} data={filteredItems} selectRow={(row) => setSelectedEmployee(row)} />
-      <Modal setIsOpen={closeModal} isOpen={selectedEmployee ? true : false}>
-        <div>
-          <Input
-            type="text"
-            placeholder="Name"
-            value={employee.name}
-            onChange={(e) => setEmployee({ ...employee, name: e.target.value })}
-            error={errorName}
-            label="Name"
-          />
-          <Input
-            type="text"
-            placeholder="Email"
-            value={employee.email}
-            onChange={(e) => setEmployee({ ...employee, email: e.target.value })}
-            error={errorEmail}
-            label="Email"
-          />
-           <Select
-            options={options}
-            handleChange ={(option)=>setRole(option.role)}
-            selected={role}
-            />
-          <div className={styles.btnTopmargin}>
-            <Button  theme>
-              Save
-            </Button>
-            <Button onClick={closeModal} theme="error">
-              Close
-            </Button>
-          </div>
-        </div>
-      </Modal>
       <Modal setIsOpen={closeModal} isOpen={open}>
-        <div>
+        <div>  
+          <div className={styles.adduserText}>
+            Add user as Admin
+          </div>
             <Select
             options={options}
             handleChange ={(option)=>setRole(option)}
-            selected={role}
+            selected={role.name}
+            placeholder={role.name}
             />
-          
           <div className={styles.btnTopmargin}>
-            <Button onClick={createEmployee}>Create</Button>
+            <Button onClick={createAdministration}>Make Admin</Button>
             <Button onClick={closeModal} theme="error">
               Close
             </Button>
           </div>
         </div>
       </Modal>
-      <Modal setIsOpen={closeModal} isOpen={deleteEmployee}>
+      <Modal setIsOpen={closeModal} isOpen={makeUser}>
         <div>
           <div className={styles.deleteText}>
-            Are you sure you want to delete? <br />
+            Are you sure you want to change the role of <br />
             Employee: <b className={styles.textColor}>{employee.name}</b>
           </div>
           <div>
