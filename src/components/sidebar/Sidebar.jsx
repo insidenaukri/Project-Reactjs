@@ -18,7 +18,7 @@ export function Sidebar() {
   const configRoutes = [
     { name: 'Employees', path: '/employees' },
     { name: 'Organisations', path: '/organisations' },
-    { name: 'Administrators', path: '/admins' },
+    { name: 'Administrators', path: '/administrators' },
   ]
 
   const logout = async () => {

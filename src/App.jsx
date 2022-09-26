@@ -7,6 +7,7 @@ import { BonusDepts } from './routes/bonus-depts/'
 import { Main } from './routes/main/Main'
 import { Organisations } from './routes/organisations/'
 import { Employees } from './routes/employees/'
+import { Administrators } from './routes/administrators/'
 import { UserProvider } from './contexts/user-context'
 
 export function App() {
@@ -22,6 +23,7 @@ export function App() {
             <Route path="/time-entries" element={<TimeEntries />} />
             <Route path="/organisations" element={<Organisations />} />
             <Route path="/employees" element={<Employees />} />
+            <Route path="/administrators" element={<Administrators />} />
             <Route
               path="/dummy"
               element={
