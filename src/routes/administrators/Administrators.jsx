@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../api'
 import { DataTable } from '../../components/data-table'
-import { Input } from '../../components/input'
+import { Select } from '../../components/select'
 import { Button } from '../../components/button'
 import { Modal } from '../../components/modal'
 import { FilterOptions } from '../../components/filter-options'
@@ -13,7 +13,7 @@ export function Administrators() {
   const [organisationId, setOrganisationId] = useState('')
   const [open, setOpen] = useState(false)
   const [removeAdmin, setRemoveAdmin] = useState(false)
-  const [user, setUser] = useState({ name: '', email: '', role: 'admin' })  
+  const [user, setUser] = useState({ id: '', name: '', email: '', role: 'admin' })  
   const [role, setRole] = useState('')
   const [options, setOptions] = useState([])
 
@@ -82,8 +82,9 @@ export function Administrators() {
   const addAsAdmin = async () => {
     try {
       const objUser = {
-        name: user.name,
-        email: user.email,
+        id: selectedUser.id,
+        name: selectedUser.name,
+        email: selectedUser.email,
         active: true,
         organisation_id: organisationId,
         role: 'admin'
@@ -100,11 +101,11 @@ export function Administrators() {
     try {
         const objUser = {
           id: selectedUser.id,
-          name: user.name,
-          email: user.email,
+          name: selectedUser.name,
+          email: selectedUser.email,
           active: true,
           organisation_id: organisationId,
-          role: 'user'
+          role: role
         }
         await api.put('/employees', objUser)
         getUsers()

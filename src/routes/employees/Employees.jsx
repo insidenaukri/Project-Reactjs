@@ -103,6 +103,7 @@ export function Employees() {
         const objEmployee = {
           name: employee.name,
           email: employee.email,
+          role: 'user',
           active: true,
           organisation_id: organisationId,
         }
@@ -124,6 +125,7 @@ export function Employees() {
           name: employee.name,
           email: employee.email,
           active: true,
+          role: 'user',
           organisation_id: organisationId,
         }
         const res = await api.put('/employees', objEmployee)
