@@ -53,6 +53,10 @@ export function Employees() {
           accessor: 'email',
         },
         {
+          Header: 'Role',
+          accessor: 'role',
+        },
+        {
           Header: '',
           accessor: 'delete',
           Cell: () => {

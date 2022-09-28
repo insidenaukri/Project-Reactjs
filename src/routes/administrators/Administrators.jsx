@@ -14,7 +14,6 @@ export function Administrators() {
   const [open, setOpen] = useState(false)
   const [removeAdmin, setRemoveAdmin] = useState(false)
   const [user, setUser] = useState({ id: '', name: '', email: '', role: 'admin' })  
-  const [role, setRole] = useState('')
   const [options, setOptions] = useState([])
 
   useEffect(() => {
@@ -26,6 +25,19 @@ export function Administrators() {
       setUser(selectedUser)
     }
   }, [selectedUser])
+
+  const modalStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      overflow: 'none'
+    }
+  }
+  
 
   const getUsers = async () => {
     try {
@@ -82,9 +94,9 @@ export function Administrators() {
   const addAsAdmin = async () => {
     try {
       const objUser = {
-        id: selectedUser.id,
-        name: selectedUser.name,
-        email: selectedUser.email,
+        id: user.id,
+        name: user.name,
+        email: user.email,
         active: true,
         organisation_id: organisationId,
         role: 'admin'
@@ -105,7 +117,7 @@ export function Administrators() {
           email: selectedUser.email,
           active: true,
           organisation_id: organisationId,
-          role: role
+          role: 'user'
         }
         await api.put('/employees', objUser)
         getUsers()
@@ -116,7 +128,7 @@ export function Administrators() {
   }
 
   const closeModal = () => {
-    setUser({ name: '', email: '', role: 'admin' })
+    setUser({ id: 0, name: '', email: '', role: 'admin' })
     setSelectedUser(null)
     setOpen(false)
     setRemoveAdmin(false)
@@ -130,18 +142,18 @@ export function Administrators() {
       <Button onClick={() => setOpen(true)}>Add Admin</Button>
       <DataTable columns={columns} data={adminUsers} selectRow={row => setSelectedUser(row)} />
       
-      <Modal setIsOpen={closeModal} isOpen={open}>
+      <Modal setIsOpen={closeModal} isOpen={open} styles={modalStyles}>
         <div>
           <div className={styles.addAdminHeader}>
             Add user as <b>Admin</b>
           </div>
           <Select
             options={options}
-            handleChange ={(option)=>setRole(option)}
-            selected={role.name}
-            placeholder={role.name}
+            handleChange ={(option)=>setUser(option)}
+            selected={user.name}
+            placeholder={user.name}
             />
-          <div className={styles.btnTopmargin}>
+          <div className={styles.btnMarginTop}>
             <Button onClick={addAsAdmin}>Add Admin</Button>
             <Button onClick={closeModal}>
               Close
