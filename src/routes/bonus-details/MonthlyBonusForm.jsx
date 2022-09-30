@@ -21,12 +21,11 @@ export function MonthlyBonusForm({ monthlyBonus, employee, updatedBonus }) {
     bonusQualifyingTime: 0,
     bonusQualifyingTimeNotComp: 0,
     bonusQualifyingOverTime: 0,
+    date: null,
   })
 
   useEffect(() => {
-    if (monthlyBonus) {
-      setBonusData({ ...monthlyBonus })
-    }
+    if (monthlyBonus) setBonusData({ ...monthlyBonus })
   }, [monthlyBonus])
 
   useEffect(() => {
