@@ -3,7 +3,6 @@ import api from '../../api'
 import styles from './BonusDeptSum.module.css'
 
 export function BonusDeptSum({ organisationId, date }) {
-  if (!organisationId) return <></>
   const [bonusDeptSum, setBonusDeptSum] = useState({})
 
   const getBonusDeptSum = async () => {
@@ -16,9 +15,11 @@ export function BonusDeptSum({ organisationId, date }) {
   }
 
   useEffect(() => {
-    getBonusDeptSum()
+    if (organisationId) getBonusDeptSum()
   }, [organisationId, date])
 
+  if (!organisationId) return <></>
+  
   return (
     <ul className={styles.list}>
       <li>
