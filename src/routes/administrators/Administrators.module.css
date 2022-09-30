@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.deleteText {
+  margin-bottom: 20px;
+}
+.textColor {
+  color: #339ecd;
+}
+.addAdminHeader {
+  margin-bottom: 10px;
+}
+.btnMarginTop {
+  margin-top: 15px;
+}
